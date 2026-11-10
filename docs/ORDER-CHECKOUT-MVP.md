@@ -23,6 +23,10 @@ NEXORA is intended to become a multi-seller commerce platform. Buyers should be 
 7. Seller fulfillment — seller sees paid order and updates processing, shipped, completed, or cancelled states.
 8. Refund/dispute — tracked separately with provider references and an auditable event log.
 
+## Jastip and preorder checkout requirements
+
+The common cart and order system must also support jastiper listings: ready stock, fixed-price preorder/jastip campaigns, and quote-required requests. Before confirmation, buyers must see the sourcing origin, order deadline, estimated arrival window, remaining slots/quantity, item amount, jastip/service fee, shipping and other disclosed charges, currency, seller identity and cancellation/refund terms. Quote-required requests cannot be paid until the seller issues a final, unexpired quote and the buyer accepts it. The server must atomically reserve slots and prevent overselling; immutable order snapshots must preserve the quote, fee breakdown, arrival estimate and terms accepted by the buyer. Sellers update sourcing and delivery milestones; unavailable items, delays, cancellations and refunds must be auditable. Full product requirements: [docs/JASTIP-MVP.md](./JASTIP-MVP.md).
+
 ## Minimum server-side data model
 - users: id, email, password_hash/provider_subject, role, created_at, status
 - stores: id, owner_user_id, name, slug, country, default_currency, status
