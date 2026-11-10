@@ -16,7 +16,7 @@ Preferred no-upfront-cost candidate architecture:
 | Image storage | Supabase Storage Free initially | Keeps product images separate from relational records | Storage and bandwidth quotas apply; enforce file type/size limits and public/private access rules |
 | Payments | No integration until PSP eligibility is verified | Avoids collecting funds incorrectly or exposing the project to unapproved fees | Payment providers may charge transaction fees and require business/KYC approval |
 
-This is a candidate stack, not an assertion that accounts, services, deployments, or integrations are already active.
+This remains a candidate architecture. GitHub is connected. The owner reports that a Supabase project exists and migrations 001–003 were executed successfully; the project has not been independently inspected through a Supabase connector. Cloudflare Pages deployment and frontend integration are not confirmed.
 
 ## Cost rules
 
@@ -30,7 +30,7 @@ This is a candidate stack, not an assertion that accounts, services, deployments
 
 1. Build a mobile-first web frontend in the existing GitHub repository; preserve a web experience that works without installing an app.
 2. Deploy the frontend to Cloudflare Pages from GitHub only after a free account/deployment path is confirmed.
-3. Create a Supabase project on the Free plan only if the user can do so without payment details or a paid commitment; obtain project URL and public anon key from the user through the dashboard. Never ask for or expose the service-role key in frontend code.
+3. The owner has created a Supabase project and reports migrations 001–003 applied. Next, connect the frontend using only the project URL and public anon key. Never request or expose the service-role key in browser code.
 4. Add SQL migrations for profiles, seller stores, products, orders and order items. Enable row-level security and write policies before using real data.
 5. Implement authentication and seller/buyer flows against the backend.
 6. Enforce the Free plan quota on the server/database, not localStorage.
@@ -41,15 +41,16 @@ This is a candidate stack, not an assertion that accounts, services, deployments
 
 ## Required user action
 
-A one-time user action may be needed to create/authorize free Cloudflare and Supabase accounts and provide non-secret project configuration (Supabase project URL and public anon key). The user must never share passwords, OTPs, recovery codes, service-role keys, or payment credentials in chat.
+Remaining owner actions: finish the Supabase Auth URL Configuration after a Cloudflare Pages URL exists, and provide the Supabase project URL plus public anon key through a safe configuration path when the frontend integration is ready. Never share passwords, OTPs, recovery codes, service-role keys, or payment credentials in chat.
 
 ## Status
 
 - Replit creation attempt: blocked by `requires_active_subscription`; no app was created.
 - GitHub source repository: available.
 - Cloudflare Pages project: not created or deployed.
-- Supabase project: not created or connected.
+- Supabase project: created per owner report; migrations 001–003 reportedly executed; frontend not connected; Auth redirect allow-list incomplete. No project credentials are stored in GitHub.
 - Live NEXORA URL: not available yet.
+- Auth URL configuration (owner-reported): Site URL is `http://localhost:3000`; Redirect URLs list is empty. This is a temporary development setting, not a hosted production configuration.
 - iPhone Safari testing: not performed yet.
 
 ## Launch warning
