@@ -2,7 +2,11 @@
 
 Status: Starter migration committed to GitHub; it has **not** been applied to a Supabase project or any live database.
 
-Migration: `supabase/migrations/202611100001_initial_marketplace.sql`
+Migrations (apply in order):
+1. `supabase/migrations/202611100001_initial_marketplace.sql` — marketplace schema and RLS.
+2. `supabase/migrations/202611100002_auth_and_store_onboarding.sql` — auth profile trigger and secure store creation function.
+
+See also [Account onboarding](./ACCOUNT-ONBOARDING.md).
 
 ## Included foundations
 
@@ -24,6 +28,7 @@ This is a starter schema, not a production-ready backend. It has not been execut
 
 Before accepting real orders:
 1. Add server-side endpoints or carefully reviewed database functions for quote creation/acceptance, atomic slot reservation, order creation and cancellation.
+2. Test the auth profile trigger and store creation function against a disposable Supabase project before connecting any customer-facing UI.
 2. Recalculate all prices, fees, discounts and totals on the server; never trust browser totals.
 3. Add PSP payment-attempt/event tables and signed webhook verification with idempotency. Do not let browser clients set paid status.
 4. Add seller verification, moderation/admin access, rate limits, notifications and secure image storage policies.
