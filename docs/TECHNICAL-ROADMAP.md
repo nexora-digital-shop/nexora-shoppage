@@ -7,6 +7,8 @@ Status: Planning document. No backend or subscription enforcement is deployed.
 
 - Public GitHub repository: nexora-digital-shop/nexora-shoppage
 - Static prototype: index.html
+- Interactive storefront demo: storefront-demo.html; sample cart and WhatsApp order handoff only, with no server-side order persistence or integrated payment processing.
+- Order and checkout implementation specification: docs/ORDER-CHECKOUT-MVP.md.
 - Prototype supports product details, a live preview, a language selector, currency selection, and standalone HTML export.
 - Free-plan policy is recorded in docs/FREE-PLAN-POLICY.md.
 - No user authentication, database, server-side quota enforcement, billing, or hosted customer product pages exist yet.
