@@ -12,6 +12,8 @@ NEXORA is being developed as a multilingual commerce platform for independent se
 | [Seller Studio demo](./seller-dashboard-demo.html) | Store settings and product management | Browser local storage only; no shared database |
 | [Free plan policy](./docs/FREE-PLAN-POLICY.md) | Agreed free-tier limits | Policy is documented, not yet enforced by a server |
 | [Order & checkout MVP](./docs/ORDER-CHECKOUT-MVP.md) | Order and payment requirements | Specification, not a live checkout |
+| [Jastip MVP](./docs/JASTIP-MVP.md) | Jastiper, preorder and quote workflows | Requirements, not yet implemented |
+| [Database foundation](./docs/DATABASE-FOUNDATION.md) | Initial PostgreSQL schema and RLS plan | Migration committed, not applied or deployed |
 | [Technical roadmap](./docs/TECHNICAL-ROADMAP.md) | Architecture and milestones | Work in progress |
 | [Launch readiness](./docs/LAUNCH-READINESS.md) | Production release gates | Checklist; not yet passed |
 
@@ -28,8 +30,7 @@ The GitHub file view is source code, not the running application. A public live 
 
 NEXORA is intended to become a responsive, mobile-first, multilingual marketplace accessible through iPhone/iOS Safari, Android browsers, and desktop browsers without requiring an app download, with:
 - Seller registration and secure authentication
-- Seller storefronts and product/catalog management
-- Seller storefronts and product/catalog management for ordinary sellers and jastipers
+- Storefronts and product/catalog management for ordinary sellers and jastipers
 - Ready-stock sales, fixed-price jastip/preorders, and quote-based item requests with order windows and delivery estimates
 - Buyer cart, checkout and order tracking
 - Seller order management
