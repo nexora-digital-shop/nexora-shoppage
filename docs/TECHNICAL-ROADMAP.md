@@ -84,7 +84,7 @@ NEXORA must support two separate payment flows:
 
 ### A. Buyer pays the seller for a product
 - Product pages should be able to show a secure checkout option, not only an external WhatsApp/contact link.
-- Target payment methods for Indonesia: QRIS and supported e-wallets such as GoPay, OVO, DANA, and plus virtual-account/bank transfer and cards where supported by the chosen licensed payment provider.
+- Target payment methods for Indonesia: QRIS; DANA, GoPay, and OVO e-wallets; bank transfers and virtual accounts; and cards where supported by the chosen licensed payment provider. ShopeePay is excluded by product decision.
 - International methods and currencies can be added after provider, country, settlement, and compliance support are verified.
 - Prefer a licensed payment service provider (PSP) that explicitly supports the intended marketplace/platform model, seller onboarding/KYC, split settlement or direct seller settlement, refunds, disputes, and webhook notifications.
 - Decide whether sellers connect their own merchant accounts or whether a compliant marketplace/split-payment arrangement is available. Do not collect buyer funds into an ordinary NEXORA bank account and manually redistribute them.
