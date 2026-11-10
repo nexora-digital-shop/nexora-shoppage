@@ -33,15 +33,19 @@ Paid tiers (prices are proposals, not active offers):
 - Enterprise: custom quote.
 Do not advertise or charge these prices until features, billing, terms, support, and refund handling are ready.
 
+## Zero-upfront-cost stack candidate
+
+See [docs/FREE-STACK-DECISION.md](./FREE-STACK-DECISION.md) for the current no-cost candidate: GitHub for source, Cloudflare Pages Free for frontend hosting, and Supabase Free for authentication, PostgreSQL and initial image storage. These services are not yet connected or deployed; verify current free-tier terms and avoid any paid upgrade. Replit app creation was blocked by an active-subscription requirement and is no longer the chosen route.
+
 ## Recommended implementation sequence
 
 ### Phase 0 — Product foundation
-1. Keep the current static prototype available as a demo, clearly label it as a prototype.
+1. Keep the current static prototype available as a demo, clearly label it as a prototype. Build the real web frontend mobile-first and deploy via Cloudflare Pages Free only after the free deployment path is verified.
 2. Add a product requirements document and acceptance criteria.
 3. Define privacy, data retention, account deletion, support, and acceptable-use policies before collecting customer data.
 
 ### Phase 1 — Backend and accounts
-1. Select a backend only after checking current free-tier limits, regional availability, data location, authentication options, and migration/export capability.
+1. Evaluate the Supabase Free candidate against current free-tier limits, regional availability, data location, authentication options, backups, and migration/export capability. If any paid commitment is required, stop and evaluate another free option.
 2. Implement verified account registration and sign-in.
 3. Create server-side records for users, pages, page revisions, subscriptions, and usage events.
 4. Store counters server-side; never trust localStorage, browser JavaScript, or client-submitted edit counts.
