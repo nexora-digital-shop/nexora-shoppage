@@ -1,6 +1,6 @@
 # NEXORA account and seller onboarding
 
-Status: Requirements, starter database functions and static portal UI prototype committed; no auth provider or live database is connected. See [seller-portal.html](../seller-portal.html).
+Status: Requirements, starter database functions and static portal UI prototype are committed. The owner reports a Supabase project exists and migrations 001–003 were executed successfully; Auth URL configuration is not yet ready for a hosted frontend, and the UI is not connected to Supabase. See [seller-portal.html](../seller-portal.html).
 
 ## Account onboarding flow
 
@@ -24,7 +24,7 @@ Status: Requirements, starter database functions and static portal UI prototype 
 
 ## Migration
 
-Apply migrations in order after creating a disposable Supabase project:
+The owner reports that these migrations have already been run in Supabase. Before any rerun, inspect the project's migration history and schema; do not apply them a second time blindly:
 
 1. `supabase/migrations/202611100001_initial_marketplace.sql`
 2. `supabase/migrations/202611100002_auth_and_store_onboarding.sql`
@@ -32,5 +32,5 @@ Apply migrations in order after creating a disposable Supabase project:
 
 See [Store access hardening](./STORE-ACCESS-HARDENING.md) for required security tests.
 
-This migration is committed but has not been run against a Supabase instance. Test signup trigger behavior, duplicate store creation, unauthenticated calls, invalid slugs and cross-account ownership before production.
+The owner reports successful migration execution. Runtime tests are still required for signup trigger behavior, duplicate store creation, unauthenticated calls, invalid slugs and cross-account ownership before production. The assistant has not independently inspected the Supabase project.
 \n## Seller portal UI prototype\n\nThe static `seller-portal.html` file contains login/register screens, a store onboarding form and a sample seller dashboard. These screens deliberately do not create accounts, authenticate users, or persist store data. Browser-side validation is for user feedback only; the database function remains responsible for validating and deriving ownership from the authenticated server session. Do not collect real credentials or personal data with this prototype.\n
