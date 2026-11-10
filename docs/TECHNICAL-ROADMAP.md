@@ -95,6 +95,20 @@ NEXORA must support two separate payment flows:
 - Show buyers a clear receipt/order status and give sellers a transaction record.
 - Clearly disclose provider fees, settlement timing, refund rules, and supported payment methods.
 
+### A1. International e-wallets and payment-method standards
+
+The international payment layer must be country-aware and modular. Do not assume one wallet or payment method works in every country. Display only methods that are enabled for the buyer's country/currency and that the seller's PSP account is eligible to accept.
+
+- Global card rails where supported: Visa, Mastercard, American Express, and other networks supported by the PSP.
+- Global device wallets where supported: Apple Pay and Google Pay.
+- International digital wallets / regional examples to evaluate with the PSP: PayPal, Alipay, WeChat Pay, Kakao Pay, Naver Pay, and other locally important wallets in target markets.
+- Local bank-transfer and account-to-account methods should be considered alongside e-wallets; examples include UPI in India, Pix in Brazil, iDEAL in the Netherlands, and Bancontact in Belgium.
+- These are target methods to evaluate, not a promise that every method is available at launch. Availability depends on merchant country, buyer country, currency, PSP contract, transaction type, and compliance approval.
+- Use a provider-hosted checkout or tokenized payment components. NEXORA must not collect or store wallet login credentials, one-time passwords, card numbers, or CVV.
+- The checkout must show the buyer the actual available methods, final amount/currency, fees (if any), and seller identity before confirmation.
+- Normalize provider responses into common NEXORA order states while retaining the provider's transaction reference for reconciliation.
+- Build the integration so new PSPs and payment methods can be added without rewriting the product-page or order system.
+
 ### B. Seller pays NEXORA subscription
 - Separate subscription checkout from buyer-to-seller product checkout.
 - Support appropriate recurring billing where the selected provider offers it; otherwise provide a transparent manual renewal option initially.
