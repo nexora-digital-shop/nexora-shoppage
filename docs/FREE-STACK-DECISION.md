@@ -55,3 +55,31 @@ A one-time user action may be needed to create/authorize free Cloudflare and Sup
 ## Launch warning
 
 A free hosting URL or working prototype is not automatically a secure production marketplace. Never accept real orders or payments until backend authorization, data protection, order integrity, PSP compliance and all launch tests are complete.
+
+
+## Customer-protection architecture — mandatory design rules
+
+The Free tier is a development and early-validation constraint, not permission to expose customers to silent failures. Before real customer commerce is enabled, implement these controls:
+
+1. **Separate failure domains.** Keep source control, frontend hosting, application/database, file storage, and payment processing logically separate. Do not make GitHub the production database or route customer funds through NEXORA's ordinary bank account.
+2. **Durable server-side orders.** Persist order records and immutable order-item/price snapshots in PostgreSQL. Browser storage may improve convenience but must never be the authoritative order record.
+3. **Safe checkout degradation.** If order persistence, PSP status verification, or webhook processing is unavailable, disable new payment initiation or show a clear temporary-unavailable state. Never tell a buyer an order is paid based only on a redirect, screenshot, or client event.
+4. **Independent backups and restore drills.** Export database backups to a separate location/account where possible, encrypt them, restrict access, define retention, and test restoration before launch and regularly thereafter. A provider's included backup feature must not be assumed on a Free tier.
+5. **Quota and health monitoring.** Monitor database size, egress/bandwidth, storage, function invocations, API limits, auth email limits, errors and uptime. Configure warning thresholds below provider limits. If a free plan offers no reliable alerting, add an independent check or reduce launch scope.
+6. **No surprise charges.** Disable paid overages/automatic upgrades where the provider permits; do not attach a payment method or start a paid trial without explicit owner approval. If a provider cannot guarantee a no-charge stop, treat that as a launch risk and do not expose customer-critical workloads there.
+7. **Exportability and migration.** Keep schema migrations in Git, use standard PostgreSQL where practical, document storage object export, and avoid provider-specific dependencies for core order logic. Maintain a tested migration runbook and an owner-controlled copy of critical data.
+8. **Security boundaries.** Enable row-level security and test seller-to-seller isolation; keep service-role and PSP secrets server-side; use least-privilege access, rate limits, audit events and validated uploads.
+9. **Incident communication.** Provide a customer-facing status/maintenance message and a support route. Never silently discard an order. Show a clear order reference only after the order has been durably committed.
+10. **Launch by proven capacity.** Set conservative initial traffic/order limits based on tested free-tier capacity. If usage approaches safe thresholds, pause new seller onboarding or checkout before the system becomes unreliable; notify affected users and plan a controlled upgrade/migration.
+
+### Required recovery objectives
+
+Before accepting real orders, the team must choose and publish internal recovery targets (RPO: maximum acceptable data loss; RTO: maximum acceptable recovery time), test backup restoration, and document who responds to an incident. Do not claim zero data loss or uninterrupted uptime unless independently demonstrated.
+
+### Customer-facing service promise
+
+Do not promise 100% uptime, instant support, unlimited storage, or unlimited orders on a Free infrastructure stack. State only verified service limits. A planned maintenance mode must preserve existing published order records and avoid starting unverifiable payments.
+
+### Launch gate
+
+A free-tier deployment may serve a public informational/demo site. It must not process real customer orders/payments until durable order persistence, independent backup/restore, monitoring, security rules, safe checkout degradation, provider terms/quotas, and migration/recovery procedures have been implemented and tested.
