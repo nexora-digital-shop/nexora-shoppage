@@ -72,6 +72,12 @@ Do not advertise or charge these prices until features, billing, terms, support,
 5. Do not unlock paid features based only on a client-side success redirect.
 
 ### Phase 5 — Quality and launch
+- Mandatory platform coverage: responsive web access on iPhone/iOS Safari, Android Chrome, and modern desktop browsers on Windows/macOS. No app download should be required for core web access.
+- Build mobile-first layouts with touch-friendly controls, readable typography, responsive seller dashboards/forms, and iOS safe-area/keyboard handling.
+- Test the complete buyer and seller journeys on physical iPhones: authentication, navigation, product editing, photo-library/file uploads, cart, checkout, payment-provider redirects/app handoffs, order status, and seller order management.
+- Test iOS Safari viewport/orientation behavior, session persistence, browser navigation, and checkout return flows across representative iOS versions.
+- Treat Add to Home Screen/PWA as progressive enhancement; verify supported iOS behavior and document limitations. Do not describe NEXORA as a native App Store app unless separately built and published.
+- Record device/iOS/Safari versions and results; critical iPhone Safari failures block launch.
 - Test mobile and desktop layouts.
 - Test quota boundaries: 0 edits, 1 edit, 2 edits, third edit blocked.
 - Test refresh, logout/login, multiple devices, concurrent saves, and account recovery.
