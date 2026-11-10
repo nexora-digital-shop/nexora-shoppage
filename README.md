@@ -15,9 +15,9 @@ NEXORA is being developed as a multilingual commerce platform for independent se
 | [Free plan policy](./docs/FREE-PLAN-POLICY.md) | Agreed free-tier limits | Policy is documented, not yet enforced by a server |
 | [Order & checkout MVP](./docs/ORDER-CHECKOUT-MVP.md) | Order and payment requirements | Specification, not a live checkout |
 | [Jastip MVP](./docs/JASTIP-MVP.md) | Jastiper, preorder and quote workflows | Requirements, not yet implemented |
-| [Database foundation](./docs/DATABASE-FOUNDATION.md) | Initial PostgreSQL schema and RLS plan | Migration committed, not applied or deployed |
-| [Account onboarding](./docs/ACCOUNT-ONBOARDING.md) | Signup/profile/store creation flow | Starter requirements and functions, not live auth |
-| [Store access hardening](./docs/STORE-ACCESS-HARDENING.md) | Prevents client-side store creation and self-activation | Migration committed, not applied or tested on a live database |
+| [Database foundation](./docs/DATABASE-FOUNDATION.md) | Initial PostgreSQL schema and RLS plan | Owner reports all three migrations applied to Supabase; frontend is not connected and the live database has not been independently inspected |
+| [Account onboarding](./docs/ACCOUNT-ONBOARDING.md) | Signup/profile/store creation flow | Supabase project exists per owner report; Auth redirect configuration and frontend connection are still incomplete |
+| [Store access hardening](./docs/STORE-ACCESS-HARDENING.md) | Prevents client-side store creation and self-activation | Owner reports migration applied and direct-write checks returned expected denials; broader runtime tests remain |
 | [Technical roadmap](./docs/TECHNICAL-ROADMAP.md) | Architecture and milestones | Work in progress |
 | [Launch readiness](./docs/LAUNCH-READINESS.md) | Production release gates | Checklist; not yet passed |
 
@@ -45,8 +45,8 @@ NEXORA is intended to become a responsive, mobile-first, multilingual marketplac
 
 ## Launch and safety status
 
-**Not production-ready.** iPhone/iOS Safari compatibility is a mandatory launch requirement and has not yet been implemented or tested on a live platform. No production database, authentication, server-side order processing, payment integration, seller verification, or live deployment is currently confirmed.
+**Not production-ready.** The owner reports that a Supabase project was created and migrations 001–003 were run successfully. The reported permission checks show direct store/profile writes denied and the authenticated store-creation RPC allowed. This has not been independently inspected through a Supabase connection. The frontend is still a static prototype and is not connected to Supabase; Auth redirect configuration is incomplete; no live deployment, server-side order flow, payment integration, or iPhone/Android end-to-end test is confirmed.
 
 Never use the current demos to collect real orders or payments. Payment credentials, card data, OTPs and wallet credentials must not be collected by these prototype pages.
 
-See [Launch readiness](./docs/LAUNCH-READINESS.md) for the remaining release gates.
+As of 2026-11-10, Supabase Authentication → URL Configuration shows Site URL `http://localhost:3000` and an empty Redirect URLs list, according to the owner. This is not ready for a hosted login flow; add the eventual Cloudflare Pages URL only after it exists. See [Launch readiness](./docs/LAUNCH-READINESS.md) for the remaining release gates.
