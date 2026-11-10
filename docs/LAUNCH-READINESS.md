@@ -76,3 +76,19 @@ These are development artifacts. Their existence in GitHub does not mean the ser
 ## Launch rule
 
 Do not announce NEXORA as a live marketplace or accept real customer payments until every critical release gate above is implemented and tested. iPhone/iOS Safari compatibility is mandatory, not an optional future enhancement. A static hosting URL alone is not a functioning marketplace.
+
+
+### 9. Free-tier resilience and customer protection — mandatory launch gate
+- Treat free plans as infrastructure constraints, never as a reason to risk customer data or money.
+- Separate frontend hosting, database, file storage and PSP payment processing so one provider outage does not corrupt all business records.
+- Persist orders and immutable item/price snapshots server-side; browser localStorage is never the source of truth.
+- If database writes or payment verification are unavailable, fail closed: pause new checkout/payment initiation and display a clear status message. Never claim paid status from a browser redirect, screenshot or client-side event.
+- Configure monitoring and warning thresholds for database/storage quotas, bandwidth/egress, API/function limits, authentication email limits, errors and uptime. Act before provider caps are reached.
+- Disable automatic paid overages/upgrades where possible. No payment method, paid trial or paid upgrade without explicit owner approval. If a free provider cannot prevent surprise charges, do not use it for customer-critical workloads until risk is resolved.
+- Keep database schema migrations and deployment configuration in Git. Maintain exportable copies of database records and uploaded files; document a provider migration procedure.
+- Back up data independently of the primary database provider, restrict and encrypt backup access, define retention, and perform a successful restore drill before launch and periodically thereafter. Verify what the chosen Free plan actually includes; do not assume point-in-time recovery or automated backups.
+- Test row-level security and seller-to-seller isolation; keep privileged keys and PSP secrets on the server; validate uploads; apply rate limits and audit logging.
+- Define internal recovery point and recovery time objectives (RPO/RTO), incident ownership, support process and customer-facing maintenance/status messaging.
+- Set conservative launch capacity based on load tests and actual free-tier quotas. Pause onboarding or checkout before reaching unsafe limits; never silently drop an order.
+- Do not promise 100% uptime, unlimited usage, or zero data loss. Publish only verified limits and service expectations.
+- A free-tier public demo may launch before these controls, but real customer orders and payments remain disabled until every control above is implemented and tested.
