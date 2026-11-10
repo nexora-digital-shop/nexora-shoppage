@@ -7,7 +7,7 @@ NEXORA is being developed as a multilingual commerce platform for independent se
 
 | File | Purpose | Current limitation |
 |---|---|---|
-| [Marketplace homepage demo](./marketplace.html) | Responsive marketplace homepage, catalog search/filter, listing-type showcase and clearly labelled inactive login/seller actions | Static demo; sample products only, no real accounts/orders/payments or live hosting |\n| [ShopPage prototype](./index.html) | Product-page builder concept | Browser-only; no account or cloud save |
+| [Marketplace homepage demo](./marketplace.html) | Responsive marketplace homepage, catalog search/filter, listing-type showcase and clearly labelled inactive login/seller actions | Static demo; sample products only, no real accounts/orders/payments or live hosting |\n| [Seller portal demo](./seller-portal.html) | Login/register screen, store onboarding form and seller dashboard preview | UI prototype only; no authentication or database writes |\n| [ShopPage prototype](./index.html) | Product-page builder concept | Browser-only; no account or cloud save |
 | [Storefront demo](./storefront-demo.html) | Sample shop, cart and buyer details | Demo only; WhatsApp handoff, no server-side orders or payments |
 | [Seller Studio demo](./seller-dashboard-demo.html) | Store settings and product management | Browser local storage only; no shared database |
 | [Free plan policy](./docs/FREE-PLAN-POLICY.md) | Agreed free-tier limits | Policy is documented, not yet enforced by a server |
@@ -20,10 +20,10 @@ NEXORA is being developed as a multilingual commerce platform for independent se
 
 ## Try the prototypes
 
-1. Open [marketplace.html](./marketplace.html) for the responsive NEXORA marketplace homepage demo. You can also download the project files or clone the repository.
-2. Open `seller-dashboard-demo.html` in a modern browser to add sample products.
-3. Open `storefront-demo.html` separately to explore the buyer experience.
-4. These are independent browser demos. They do not sync automatically. Do not enter real customer or payment data.
+1. Open [marketplace.html](./marketplace.html) for the responsive NEXORA marketplace homepage demo.\n2. Open [seller-portal.html](./seller-portal.html) to inspect the account, store onboarding and seller dashboard interface (demo only). You can also download the project files or clone the repository.
+3. Open `seller-dashboard-demo.html` in a modern browser to add sample products.
+4. Open `storefront-demo.html` separately to explore the buyer experience.
+5. These are independent browser demos. They do not sync automatically. Do not enter real customer or payment data.
 
 The GitHub file view is source code, not the running application. A public live URL is not available until a hosting deployment is configured and verified.
 
