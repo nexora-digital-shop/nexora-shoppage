@@ -14,6 +14,7 @@ NEXORA is being developed as a multilingual commerce platform for independent se
 | [Order & checkout MVP](./docs/ORDER-CHECKOUT-MVP.md) | Order and payment requirements | Specification, not a live checkout |
 | [Jastip MVP](./docs/JASTIP-MVP.md) | Jastiper, preorder and quote workflows | Requirements, not yet implemented |
 | [Database foundation](./docs/DATABASE-FOUNDATION.md) | Initial PostgreSQL schema and RLS plan | Migration committed, not applied or deployed |
+| [Account onboarding](./docs/ACCOUNT-ONBOARDING.md) | Signup/profile/store creation flow | Starter requirements and functions, not live auth |
 | [Technical roadmap](./docs/TECHNICAL-ROADMAP.md) | Architecture and milestones | Work in progress |
 | [Launch readiness](./docs/LAUNCH-READINESS.md) | Production release gates | Checklist; not yet passed |
 
