@@ -77,6 +77,49 @@ Do not advertise or charge these prices until features, billing, terms, support,
 - Run accessibility, security, and privacy checks.
 - Launch only the capabilities that have passed tests.
 
+
+## Payment and e-wallet services — required product scope
+
+NEXORA must support two separate payment flows:
+
+### A. Buyer pays the seller for a product
+- Product pages should be able to show a secure checkout option, not only an external WhatsApp/contact link.
+- Target payment methods for Indonesia: QRIS and supported e-wallets such as GoPay, OVO, DANA, and ShopeePay, plus virtual-account/bank transfer and cards where supported by the chosen licensed payment provider.
+- International methods and currencies can be added after provider, country, settlement, and compliance support are verified.
+- Prefer a licensed payment service provider (PSP) that explicitly supports the intended marketplace/platform model, seller onboarding/KYC, split settlement or direct seller settlement, refunds, disputes, and webhook notifications.
+- Decide whether sellers connect their own merchant accounts or whether a compliant marketplace/split-payment arrangement is available. Do not collect buyer funds into an ordinary NEXORA bank account and manually redistribute them.
+- NEXORA must not store card numbers, CVV, e-wallet credentials, or payment passwords.
+- Store only the minimum transaction metadata needed (provider reference, amount, currency, status, timestamps, seller/page reference) and protect it appropriately.
+- Verify payment status on the server using signed webhooks/provider APIs. Never treat a browser redirect or screenshot as proof of payment.
+- Handle pending, paid, failed, expired, refunded, and disputed states idempotently.
+- Show buyers a clear receipt/order status and give sellers a transaction record.
+- Clearly disclose provider fees, settlement timing, refund rules, and supported payment methods.
+
+### B. Seller pays NEXORA subscription
+- Separate subscription checkout from buyer-to-seller product checkout.
+- Support appropriate recurring billing where the selected provider offers it; otherwise provide a transparent manual renewal option initially.
+- Activate or change plan entitlements only after server-verified payment confirmation.
+- Handle renewal, failed renewal, cancellation, refunds, and grace periods.
+
+### C. E-wallet boundary and regulatory guardrail
+- Initial scope is accepting payments through licensed PSP integrations; NEXORA does not issue or hold a stored-value wallet balance.
+- Do not build an internal NEXORA wallet, escrow, stored-value balance, or money-transfer feature in the initial release. These may trigger additional licensing, safeguarding, KYC/AML, and regulatory obligations.
+- Before launch in Indonesia or any other market, verify the PSP's current licensing/authorization, merchant eligibility, marketplace capabilities, terms, fees, settlement flows, and applicable local requirements with qualified counsel/compliance support.
+
+### Payment rollout order
+1. Phase A: add a safe external payment-link option for sellers, clearly labelled as external checkout.
+2. Phase B: integrate one verified PSP for Indonesia after confirming seller onboarding and settlement model.
+3. Phase C: add additional local e-wallets/payment methods supported by that PSP.
+4. Phase D: add international methods and subscription billing after commercial and legal eligibility checks.
+
+Payment acceptance criteria:
+- Buyer checkout status is confirmed server-to-server.
+- A forged client-side success event cannot mark an order as paid.
+- Duplicate webhooks do not create duplicate orders or entitlements.
+- Failed, expired, pending, refunded, and disputed transactions display correct states.
+- Seller settlement and refund responsibilities are explicit and tested.
+- Subscription payments cannot accidentally mark a buyer's product order as paid, or vice versa.
+
 ## Acceptance criteria for Free edit limit
 
 | Scenario | Expected result |
