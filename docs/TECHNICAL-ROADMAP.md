@@ -6,7 +6,7 @@ Status: Planning document. No backend or subscription enforcement is deployed.
 ## Current verified baseline
 
 - Public GitHub repository: nexora-digital-shop/nexora-shoppage
-- Static prototype: index.html
+- Responsive marketplace homepage demo: marketplace.html; mobile-first layout, iOS safe-area viewport support, sample catalog search/filter and non-functional login/seller entry points. Static demo only; no real accounts, live catalog, orders or payments.\n- Static product-page builder prototype: index.html
 - Interactive storefront demo: storefront-demo.html; sample cart and WhatsApp order handoff only, with no server-side order persistence or integrated payment processing.
 - Seller dashboard prototype: seller-dashboard-demo.html; local-only store settings and product CRUD with JSON backup/import, no account or server sync.
 - Order and checkout implementation specification: docs/ORDER-CHECKOUT-MVP.md.
