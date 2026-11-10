@@ -13,6 +13,8 @@ The repository contains three browser-side prototypes and product/technical spec
 
 These are development artifacts. The owner reports that a Supabase project exists and migrations 001–003 were executed successfully; reported SQL checks deny direct client store/profile writes and allow the authenticated store-creation RPC. These results have not been independently inspected through a Supabase connection and do not establish production readiness. The frontend remains disconnected and no live public deployment is confirmed.
 
+The `marketplace.html` prototype now has a static language switcher for Indonesian (`id`), English (`en`), Korean (`ko`) and Japanese (`ja`), with browser-language detection and a locally saved language preference. Translation-key coverage and JavaScript syntax were checked in the repository update; visual/browser testing, real-device testing and localization of the seller portal, storefront and authenticated flows remain outstanding.
+
 ## Release gates (must pass before public commerce launch)
 
 ### 1. Hosting and domain
