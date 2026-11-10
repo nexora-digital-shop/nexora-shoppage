@@ -7,7 +7,7 @@ NEXORA is being developed as a multilingual commerce platform for independent se
 
 | File | Purpose | Current limitation |
 |---|---|---|
-| [Marketplace homepage demo](./marketplace.html) | Responsive marketplace homepage, catalog search/filter, listing-type showcase and clearly labelled inactive login/seller actions | Static demo; sample products only, no real accounts/orders/payments or live hosting |
+| [Marketplace homepage demo](./marketplace.html) | Responsive marketplace homepage with Indonesian, English, Korean and Japanese language switching, browser-language detection, catalog search/filter and listing-type showcase | Static demo; sample products only, no real accounts/orders/payments or live hosting; other pages are not yet fully localized |
 | [Seller portal demo](./seller-portal.html) | Login/register screen, store onboarding form and seller dashboard preview | UI prototype only; no authentication or database writes |
 | [ShopPage prototype](./index.html) | Product-page builder concept | Browser-only; no account or cloud save |
 | [Storefront demo](./storefront-demo.html) | Sample shop, cart and buyer details | Demo only; WhatsApp handoff, no server-side orders or payments |
