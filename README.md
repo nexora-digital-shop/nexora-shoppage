@@ -26,7 +26,7 @@ The GitHub file view is source code, not the running application. A public live 
 
 ## Product direction
 
-NEXORA is intended to become a responsive, mobile-friendly, multilingual marketplace with:
+NEXORA is intended to become a responsive, mobile-first, multilingual marketplace accessible through iPhone/iOS Safari, Android browsers, and desktop browsers without requiring an app download, with:
 - Seller registration and secure authentication
 - Seller storefronts and product/catalog management
 - Buyer cart, checkout and order tracking
@@ -37,7 +37,7 @@ NEXORA is intended to become a responsive, mobile-friendly, multilingual marketp
 
 ## Launch and safety status
 
-**Not production-ready.** No production database, authentication, server-side order processing, payment integration, seller verification, or live deployment is currently confirmed.
+**Not production-ready.** iPhone/iOS Safari compatibility is a mandatory launch requirement and has not yet been implemented or tested on a live platform. No production database, authentication, server-side order processing, payment integration, seller verification, or live deployment is currently confirmed.
 
 Never use the current demos to collect real orders or payments. Payment credentials, card data, OTPs and wallet credentials must not be collected by these prototype pages.
 
