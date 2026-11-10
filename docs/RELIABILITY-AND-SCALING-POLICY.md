@@ -56,3 +56,29 @@ Launch only after:
 ## Honest constraint
 
 A marketplace comparable in reliability and scale to Shopee cannot responsibly be promised on a permanently Rp0 infrastructure budget. The sensible path is to build and test at Rp0, then fund production capacity before public commerce through approved spending and/or business revenue. If that funding is not yet available, keep the product in demo/private testing mode rather than putting customer orders at risk.
+
+
+## Revenue-funded growth strategy
+
+NEXORA will grow infrastructure in stages and reinvest business revenue rather than buying enterprise-scale capacity before demand exists.
+
+1. **Build at Rp0:** use free services for development, demos and controlled tests. No real customer payment processing on an unverified free-tier setup.
+2. **Minimum viable production:** before accepting real customers, establish a baseline production setup with durable orders, verified payment handling, independent backups, monitoring, and enough tested capacity. Obtain explicit owner approval for any cost.
+3. **Revenue reserve:** once revenue is earned, first deduct payment-provider fees, refunds/chargebacks, taxes and other legally required liabilities. From the remaining operating contribution, allocate a planned portion to infrastructure, backups, security and support before discretionary spending.
+4. **Scale from evidence:** review actual active sellers, traffic, database growth, storage, bandwidth, order volume, checkout latency, error rate and provider limits. Upgrade before safe capacity is exhausted, not after customers encounter failures.
+5. **Keep a safety reserve:** maintain a cash buffer for essential hosting/database costs and incident recovery. Do not spend all revenue on marketing or owner withdrawals while critical services are underfunded.
+6. **No automatic spend:** no provider upgrade, paid overage, or recurring commitment without the owner's explicit approval and a clear cost/benefit review.
+
+### Suggested initial revenue allocation (planning guideline, not a promise)
+
+After payment fees, refunds, taxes and required liabilities are accounted for, consider allocating the remaining operating contribution approximately as follows:
+- 30% — infrastructure, database, backups and monitoring;
+- 20% — security, maintenance and reliability improvements;
+- 30% — customer acquisition, support and operations;
+- 20% — retained business reserve / reinvestment flexibility.
+
+Review these percentages monthly against actual costs and growth. If baseline infrastructure and security costs are not covered, prioritize those before marketing expansion or owner withdrawals. These are internal planning targets, not customer fees or guaranteed profit distributions.
+
+### Growth trigger
+
+Do not upgrade solely because a certain number of users has joined. Upgrade when measured usage, forecast demand, latency/error trends, backup requirements or provider limits show that current safe headroom is insufficient. The target is to complete an upgrade before customers feel the limitation.
