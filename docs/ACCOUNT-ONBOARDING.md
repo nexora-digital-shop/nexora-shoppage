@@ -1,6 +1,6 @@
 # NEXORA account and seller onboarding
 
-Status: Requirements and starter database functions committed; no auth provider or live database is connected.
+Status: Requirements, starter database functions and static portal UI prototype committed; no auth provider or live database is connected. See [seller-portal.html](../seller-portal.html).
 
 ## Account onboarding flow
 
@@ -27,3 +27,4 @@ Apply after the initial schema migration:
 `supabase/migrations/202611100002_auth_and_store_onboarding.sql`
 
 This migration is committed but has not been run against a Supabase instance. Test signup trigger behavior, duplicate store creation, unauthenticated calls, invalid slugs and cross-account ownership before production.
+\n## Seller portal UI prototype\n\nThe static `seller-portal.html` file contains login/register screens, a store onboarding form and a sample seller dashboard. These screens deliberately do not create accounts, authenticate users, or persist store data. Browser-side validation is for user feedback only; the database function remains responsible for validating and deriving ownership from the authenticated server session. Do not collect real credentials or personal data with this prototype.\n
