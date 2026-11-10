@@ -29,6 +29,8 @@ The GitHub file view is source code, not the running application. A public live 
 NEXORA is intended to become a responsive, mobile-first, multilingual marketplace accessible through iPhone/iOS Safari, Android browsers, and desktop browsers without requiring an app download, with:
 - Seller registration and secure authentication
 - Seller storefronts and product/catalog management
+- Seller storefronts and product/catalog management for ordinary sellers and jastipers
+- Ready-stock sales, fixed-price jastip/preorders, and quote-based item requests with order windows and delivery estimates
 - Buyer cart, checkout and order tracking
 - Seller order management
 - Country- and currency-aware payment methods through eligible licensed payment providers
