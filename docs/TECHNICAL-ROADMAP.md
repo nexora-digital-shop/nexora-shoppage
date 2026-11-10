@@ -178,3 +178,22 @@ Payment acceptance criteria:
 - Do not store payment card details directly.
 - Collect the minimum personal data necessary.
 - Never describe the product as secure, production-ready, multilingual in full, or monetized until those properties have been implemented and tested.
+
+
+## Free-tier resilience and customer-protection requirements
+
+The free stack is acceptable for development and controlled validation only. Real customer commerce must remain disabled until these requirements pass:
+
+- Persist every order and price/item snapshot in the server database; browser storage is never authoritative.
+- Separate frontend hosting, PostgreSQL, object storage and PSP processing to reduce single-provider failure risk.
+- Fail closed during database or payment-verification outages: stop new checkout initiation and show a clear message. Never infer payment success from a client redirect or screenshot.
+- Monitor quotas (database, storage, bandwidth/egress, API/functions, auth emails), error rates and uptime; alert before limits and pause onboarding/checkout before unsafe capacity is reached.
+- Disable automatic paid overages where possible; no card attachment, trial or upgrade without owner approval.
+- Keep schema migrations in Git and use portable PostgreSQL/data formats where practical. Document and test export/migration of database rows and uploaded files.
+- Maintain independent encrypted backups with restricted access and retention; test restoration before launch. Verify actual Free-plan backup capabilities rather than assuming provider backups.
+- Test row-level security and seller tenant isolation; keep privileged database and PSP secrets server-side.
+- Define RPO/RTO, incident ownership, customer support and maintenance/status messaging.
+- Publish only verified limits; never promise unlimited usage or 100% uptime.
+- A public demo may be hosted on free infrastructure, but real orders/payments are blocked until backup/restore, monitoring, security, safe-failure and migration controls have passed.
+
+See [docs/FREE-STACK-DECISION.md](./FREE-STACK-DECISION.md) and [docs/LAUNCH-READINESS.md](./LAUNCH-READINESS.md) for detailed acceptance gates.
