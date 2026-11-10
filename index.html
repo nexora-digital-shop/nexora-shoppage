@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101522">
+<title>NEXORA ShopPage — Product Page Builder</title>
+<style>
+:root{color-scheme:dark;--bg:#0c111b;--panel:#151e2d;--line:#29364a;--muted:#aab6c8;--accent:#8b9cff;--white:#f7f8fc}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 85% 0,#202c48 0,transparent 34%),var(--bg);color:var(--white);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}header{padding:22px max(20px,calc((100% - 1180px)/2));border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px}header strong{font-size:22px;letter-spacing:.14em}header span{color:var(--muted);font-size:13px}.wrap{max-width:1180px;margin:auto;padding:34px 20px 60px}.intro{margin-bottom:25px}.intro h1{font-size:clamp(28px,5vw,42px);line-height:1.1;margin:0 0 10px}.intro p{color:var(--muted);margin:0}.layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px}.panel{background:#131c2aee;border:1px solid var(--line);border-radius:18px;padding:22px;min-width:0}.panel h2{font-size:18px;margin:0 0 18px}.field{margin:0 0 14px}.field label{display:block;font-size:13px;color:#c8d2e2;margin-bottom:6px}.field input,.field textarea,.field select{width:100%;background:#0c1421;color:var(--white);border:1px solid #34435a;border-radius:10px;padding:12px;font:inherit;min-width:0}.field textarea{min-height:92px;resize:vertical}.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}button{border:0;border-radius:10px;padding:12px 16px;font:600 14px system-ui;cursor:pointer;background:var(--accent);color:#101522}button.secondary{background:#26354b;color:var(--white);border:1px solid #40516c}.preview{background:#fff;color:#182033;border-radius:14px;overflow:hidden;min-height:430px}.preview .hero{padding:24px;background:#f4f6fb}.preview img{width:100%;height:220px;object-fit:cover;background:#e5e9f2;display:block}.preview .body{padding:24px}.preview .brand{font-size:12px;letter-spacing:.14em;color:#64718a;text-transform:uppercase}.preview h3{font-size:26px;line-height:1.2;margin:9px 0}.preview p{color:#596579;white-space:pre-wrap}.price{font-size:22px;font-weight:750;margin:16px 0}.buy{display:inline-block;background:#18243a;color:white;text-decoration:none;border-radius:9px;padding:12px 18px;font-weight:650}.hint{font-size:12px;color:var(--muted);margin-top:12px}.foot{text-align:center;color:#8491a5;font-size:12px;margin-top:28px}
+@media(max-width:800px){.layout{grid-template-columns:1fr}.wrap{padding-top:25px}.panel{padding:17px}header{padding:18px 20px}}@media(max-width:420px){.two{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><strong>NEXORA</strong><span>Technology Without Borders</span></header>
+<main class="wrap">
+<section class="intro"><h1>Build your product page.<br>Without coding.</h1><p>Create a clean product page, preview it instantly, and export it as a standalone HTML file.</p></section>
+<div class="layout">
+<section class="panel" aria-label="Product details">
+<h2>1. Product details</h2>
+<div class="field"><label for="lang">Page language</label><select id="lang"></select></div>
+<div class="field"><label for="brand">Brand / store name</label><input id="brand" value="Your Store" maxlength="70"></div>
+<div class="field"><label for="name">Product name</label><input id="name" value="Everyday Essentials" maxlength="100"></div>
+<div class="field"><label for="desc">Product description</label><textarea id="desc">A thoughtful product made to make everyday life a little better.</textarea></div>
+<div class="two"><div class="field"><label for="price">Price</label><input id="price" value="19.99" maxlength="30"></div><div class="field"><label for="currency">Currency</label><select id="currency"><option>USD</option><option>IDR</option><option>KRW</option><option>JPY</option><option>EUR</option><option>GBP</option><option>MYR</option><option>SGD</option></select></div></div>
+<div class="field"><label for="image">Product image URL (optional)</label><input id="image" type="url" placeholder="https://example.com/product.jpg"></div>
+<div class="field"><label for="order">Order / contact link</label><input id="order" type="url" placeholder="https://wa.me/..." ></div>
+<div class="field"><label for="cta">Button text</label><input id="cta" value="Order now" maxlength="40"></div>
+<div class="actions"><button id="export">Export HTML</button><button class="secondary" id="reset" type="button">Reset example</button></div>
+<p class="hint">Your information stays in this browser session. This first version does not upload products or collect customer data.</p>
+</section>
+<section class="panel"><h2>2. Live preview</h2><div class="preview" id="preview" aria-live="polite"><div class="hero"><div class="brand">YOUR STORE</div><h3>Everyday Essentials</h3></div><div class="body"><p>A thoughtful product made to make everyday life a little better.</p><div class="price">$19.99 USD</div><a class="buy">Order now</a></div></div></section>
+</div>
+<div class="foot">© <span id="year"></span> NEXORA. Built for independent businesses.</div>
+</main>
+<script>
+const languages=[
+['en','English','Product details','Brand / store name','Product name','Product description','Price','Product image URL (optional)','Order / contact link','Button text','Order now'],
+['id','Bahasa Indonesia','Detail produk','Nama merek / toko','Nama produk','Deskripsi produk','Harga','URL gambar produk (opsional)','Tautan pemesanan / kontak','Teks tombol','Pesan sekarang'],
+['ko','한국어','제품 정보','브랜드 / 상점 이름','제품명','제품 설명','가격','제품 이미지 URL (선택)','주문 / 연락처 링크','버튼 문구','지금 주문'],
+['ja','日本語','商品情報','ブランド / 店舗名','商品名','商品説明','価格','商品画像URL（任意）','注文 / 連絡先リンク','ボタンの文字','今すぐ注文'],
+['zh','中文','产品信息','品牌 / 店铺名称','产品名称','产品描述','价格','产品图片网址（可选）','订购 / 联系链接','按钮文字','立即订购'],
+['es','Español','Detalles del producto','Marca / tienda','Nombre del producto','Descripción del producto','Precio','URL de imagen (opcional)','Enlace de pedido / contacto','Texto del botón','Pedir ahora'],
+['fr','Français','Détails du produit','Marque / boutique','Nom du produit','Description du produit','Prix','URL de l’image (facultatif)','Lien de commande / contact','Texte du bouton','Commander'],
+['de','Deutsch','Produktdetails','Marke / Shopname','Produktname','Produktbeschreibung','Preis','Bild-URL (optional)','Bestell- / Kontaktlink','Schaltflächentext','Jetzt bestellen'],
+['pt','Português','Detalhes do produto','Marca / loja','Nome do produto','Descrição do produto','Preço','URL da imagem (opcional)','Link de pedido / contato','Texto do botão','Pedir agora'],
+['ar','العربية','تفاصيل المنتج','العلامة التجارية / المتجر','اسم المنتج','وصف المنتج','السعر','رابط صورة المنتج (اختياري)','رابط الطلب / التواصل','نص الزر','اطلب الآن'],
+['hi','हिन्दी','उत्पाद विवरण','ब्रांड / स्टोर का नाम','उत्पाद का नाम','उत्पाद विवरण','कीमत','उत्पाद छवि URL (वैकल्पिक)','ऑर्डर / संपर्क लिंक','बटन का टेक्स्ट','अभी ऑर्डर करें'],
+['th','ไทย','รายละเอียดสินค้า','แบรนด์ / ร้านค้า','ชื่อสินค้า','รายละเอียดสินค้า','ราคา','URL รูปภาพสินค้า (ไม่บังคับ)','ลิงก์สั่งซื้อ / ติดต่อ','ข้อความบนปุ่ม','สั่งซื้อเลย'],
+['vi','Tiếng Việt','Chi tiết sản phẩm','Thương hiệu / cửa hàng','Tên sản phẩm','Mô tả sản phẩm','Giá','URL hình ảnh (tùy chọn)','Liên kết đặt hàng / liên hệ','Nhãn nút','Đặt hàng ngay'],
+['ms','Bahasa Melayu','Butiran produk','Jenama / kedai','Nama produk','Penerangan produk','Harga','URL imej produk (pilihan)','Pautan pesanan / hubungan','Teks butang','Pesan sekarang'],
+['it','Italiano','Dettagli prodotto','Marchio / negozio','Nome prodotto','Descrizione prodotto','Prezzo','URL immagine (facoltativo)','Link ordine / contatto','Testo pulsante','Ordina ora'],
+['nl','Nederlands','Productgegevens','Merk / winkelnaam','Productnaam','Productbeschrijving','Prijs','Productafbeelding-URL (optioneel)','Bestel- / contactlink','Knoptekst','Bestel nu'],
+['ru','Русский','Информация о товаре','Бренд / магазин','Название товара','Описание товара','Цена','URL изображения (необязательно)','Ссылка для заказа / связи','Текст кнопки','Заказать'],
+['tr','Türkçe','Ürün bilgileri','Marka / mağaza adı','Ürün adı','Ürün açıklaması','Fiyat','Ürün görseli URL (isteğe bağlı)','Sipariş / iletişim bağlantısı','Düğme metni','Şimdi sipariş ver']
+];
+const $=id=>document.getElementById(id), lang=$('lang');
+languages.forEach((l,i)=>{const o=document.createElement('option');o.value=l[0];o.textContent=l[1];if(!i)o.selected=true;lang.append(o)});
+function safeUrl(v){try{const u=new URL(v);return ['http:','https:'].includes(u.protocol)?u.href:''}catch{return ''}}
+function update(){const l=languages.find(x=>x[0]===lang.value)||languages[0],rtl=l[0]==='ar';document.documentElement.lang=l[0];document.documentElement.dir=rtl?'rtl':'ltr';
+const labels=[...document.querySelectorAll('.field label')];const keys=['','brand','name','desc','','image','order','cta'];const map={brand:3,name:4,desc:5,image:7,order:8,cta:9};labels.forEach(label=>{const id=label.htmlFor;if(map[id]!==undefined)label.textContent=l[map[id]]});
+$('preview').dir=rtl?'rtl':'ltr';const image=safeUrl($('image').value);const title=$('name').value||l[4],brand=$('brand').value||l[3],desc=$('desc').value,price=$('price').value,currency=$('currency').value,cta=$('cta').value||l[10],order=safeUrl($('order').value);
+$('preview').innerHTML='<div class="hero">'+(image?'<img src="'+image.replace(/&/g,'&amp;').replace(/"/g,'&quot;')+'" alt="Product image">':'')+'<div class="brand"></div><h3></h3></div><div class="body"><p></p><div class="price"></div><a class="buy"></a></div>';
+$('preview').querySelector('.brand').textContent=brand.toUpperCase();$('preview').querySelector('h3').textContent=title;$('preview').querySelector('p').textContent=desc;$('preview').querySelector('.price').textContent=price+' '+currency;const a=$('preview').querySelector('a');a.textContent=cta;if(order){a.href=order;a.target='_blank';a.rel='noopener'}else{a.removeAttribute('href');a.title='Add an order link to activate this button'}
+}
+document.querySelectorAll('input,textarea,select').forEach(el=>el.addEventListener('input',update));lang.addEventListener('change',update);
+$('reset').onclick=()=>{[['brand','Your Store'],['name','Everyday Essentials'],['desc','A thoughtful product made to make everyday life a little better.'],['price','19.99'],['image',''],['order',''],['cta','Order now']].forEach(([id,v])=>$(id).value=v);$('currency').value='USD';lang.value='en';update()};
+$('export').onclick=()=>{const title=$('name').value||'Product';const brand=$('brand').value;const desc=$('desc').value;const price=$('price').value+' '+$('currency').value;const cta=$('cta').value||'Order now';const img=safeUrl($('image').value);const link=safeUrl($('order').value);const rtl=lang.value==='ar';const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const html='<!doctype html><html lang="'+lang.value+'" dir="'+(rtl?'rtl':'ltr')+'"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+esc(title)+'</title><style>body{font:16px system-ui;margin:0;background:#f3f5f9;color:#182033}.card{max-width:680px;margin:40px auto;background:white;border-radius:18px;overflow:hidden;box-shadow:0 10px 35px #17243a18}.card img{width:100%;max-height:380px;object-fit:cover}.content{padding:28px}.brand{color:#667085;letter-spacing:.12em;font-size:12px}h1{font-size:32px}p{white-space:pre-wrap;color:#566176;line-height:1.6}.price{font-size:24px;font-weight:bold;margin:20px 0}a{display:inline-block;background:#18243a;color:white;padding:13px 20px;border-radius:9px;text-decoration:none}</style><main class="card">'+(img?'<img src="'+esc(img)+'" alt="Product image">':'')+'<section class="content"><div class="brand">'+esc(brand)+'</div><h1>'+esc(title)+'</h1><p>'+esc(desc)+'</p><div class="price">'+esc(price)+'</div>'+(link?'<a href="'+esc(link)+'" target="_blank" rel="noopener">'+esc(cta)+'</a>':'')+'</section></main></html>';const blob=new Blob([html],{type:'text/html;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='nexora-product-page.html';a.click();URL.revokeObjectURL(url)};
+$('year').textContent=new Date().getFullYear();update();
+</script>
+</body></html>
