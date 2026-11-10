@@ -12,6 +12,7 @@ Status: Planning document. No backend or subscription enforcement is deployed.
 - Order and checkout implementation specification: docs/ORDER-CHECKOUT-MVP.md.
 - Initial Supabase-compatible PostgreSQL migration: supabase/migrations/202611100001_initial_marketplace.sql; committed but not applied or deployed. See docs/DATABASE-FOUNDATION.md.
 - Account onboarding migration: supabase/migrations/202611100002_auth_and_store_onboarding.sql; profile trigger and authenticated store-creation function committed, not applied or tested against a live Supabase project. See docs/ACCOUNT-ONBOARDING.md.
+- Store access hardening migration: supabase/migrations/202611100003_store_write_hardening.sql; removes direct client store writes so sellers cannot self-activate. Committed, not applied or runtime-tested. See docs/STORE-ACCESS-HARDENING.md.
 - Prototype supports product details, a live preview, a language selector, currency selection, and standalone HTML export.
 - Free-plan policy is recorded in docs/FREE-PLAN-POLICY.md.
 - No user authentication, database, server-side quota enforcement, billing, or hosted customer product pages exist yet.
