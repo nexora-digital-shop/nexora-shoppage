@@ -16,6 +16,10 @@ Status: Planning document. No backend or subscription enforcement is deployed.
 - GitHub Pages (if enabled) can host static files; it cannot securely enforce account-based quotas or subscriptions by itself.
 - Replit Agent access previously presented a subscription upgrade gate; do not assume it is available for implementation without a confirmed working app and access.
 
+## Seller types and jastip support
+
+NEXORA supports ordinary online sellers and jastipers from the same seller account/store experience. Listings support ready stock, fixed-price jastip/preorder campaigns, and quote-required item requests. Jastip listings must disclose origin, destination/service area, order window, estimated arrival, quantity/slot limits, service fee, shipping/other charges, availability and cancellation/refund terms. Quotes and slot reservations are validated server-side; order snapshots preserve the agreed amount and terms. See [docs/JASTIP-MVP.md](./JASTIP-MVP.md) for the full requirements and acceptance tests.
+
 ## Product rules to preserve
 
 Free:
