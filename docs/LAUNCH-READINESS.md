@@ -2,7 +2,7 @@
 
 Last updated: 2026-11-10
 
-## Verified project status
+## Repository-verified and owner-reported project status
 
 The repository contains three browser-side prototypes and product/technical specifications:
 - `index.html`: ShopPage prototype
@@ -11,7 +11,7 @@ The repository contains three browser-side prototypes and product/technical spec
 - `docs/ORDER-CHECKOUT-MVP.md`: order and checkout requirements
 - `docs/FREE-PLAN-POLICY.md`: free plan decision
 
-These are development artifacts. Their existence in GitHub does not mean the service is deployed or safe for real customers.
+These are development artifacts. The owner reports that a Supabase project exists and migrations 001–003 were executed successfully; reported SQL checks deny direct client store/profile writes and allow the authenticated store-creation RPC. These results have not been independently inspected through a Supabase connection and do not establish production readiness. The frontend remains disconnected and no live public deployment is confirmed.
 
 ## Release gates (must pass before public commerce launch)
 
@@ -33,12 +33,16 @@ These are development artifacts. Their existence in GitHub does not mean the ser
 - No public launch until critical buyer and seller workflows pass on iPhone Safari as well as Android and desktop.
 
 ### 3. Backend and database
-- Create production database schema and migrations for users, seller profiles, stores, products, orders, order items, payment events and subscriptions.
+- Starter schema and migrations 001–003 are committed; the owner reports they have been applied to a Supabase project.
+- Reported checks: anonymous store insert denied; authenticated direct store insert/update denied; profile insert denied; authenticated `create_my_store` RPC allowed; 13 policies remain.
+- Independently verify the live schema, auth trigger, RPC behavior, seller-to-seller isolation, order writes, payment events and subscription tables before calling the backend ready.
+- Create/confirm production database schema and migrations for users, seller profiles, stores, products, orders, order items, payment events and subscriptions.
 - Enforce tenant isolation: sellers can only access their own stores, products and orders.
 - Add server-side validation, rate limits, audit logging and safe file/image upload handling.
 - Back up data and test restore.
 
 ### 4. Authentication and account security
+- Owner-reported Supabase Auth URL Configuration currently has Site URL `http://localhost:3000` and an empty Redirect URLs list (2026-11-10); configure the real hosted URL and exact allowed callback paths after Cloudflare Pages is deployed.
 - Email/password or supported sign-in with verified email.
 - Secure password hashing/session handling, password reset and account deletion.
 - Role-based access for buyer, seller and platform admin.
