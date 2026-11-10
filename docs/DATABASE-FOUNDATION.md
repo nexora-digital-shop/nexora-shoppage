@@ -5,8 +5,9 @@ Status: Starter migration committed to GitHub; it has **not** been applied to a 
 Migrations (apply in order):
 1. `supabase/migrations/202611100001_initial_marketplace.sql` — marketplace schema and RLS.
 2. `supabase/migrations/202611100002_auth_and_store_onboarding.sql` — auth profile trigger and secure store creation function.
+3. `supabase/migrations/202611100003_store_write_hardening.sql` — removes direct client store writes so sellers cannot self-activate.
 
-See also [Account onboarding](./ACCOUNT-ONBOARDING.md).
+See also [Account onboarding](./ACCOUNT-ONBOARDING.md) and [Store access hardening](./STORE-ACCESS-HARDENING.md).
 
 ## Included foundations
 
@@ -29,10 +30,11 @@ This is a starter schema, not a production-ready backend. It has not been execut
 Before accepting real orders:
 1. Add server-side endpoints or carefully reviewed database functions for quote creation/acceptance, atomic slot reservation, order creation and cancellation.
 2. Test the auth profile trigger and store creation function against a disposable Supabase project before connecting any customer-facing UI.
-2. Recalculate all prices, fees, discounts and totals on the server; never trust browser totals.
-3. Add PSP payment-attempt/event tables and signed webhook verification with idempotency. Do not let browser clients set paid status.
-4. Add seller verification, moderation/admin access, rate limits, notifications and secure image storage policies.
-5. Add tests for cross-seller isolation, buyer privacy, concurrent last-slot reservations, expired quotes and payment replay.
-6. Verify backup/restore, monitoring, export and iPhone/Android end-to-end flows before launch.
+3. Apply and test migration 003; confirm sellers cannot directly create, update, or self-activate stores. See [Store access hardening](./STORE-ACCESS-HARDENING.md).
+4. Recalculate all prices, fees, discounts and totals on the server; never trust browser totals.
+5. Add PSP payment-attempt/event tables and signed webhook verification with idempotency. Do not let browser clients set paid status.
+6. Add seller verification, moderation/admin access, rate limits, notifications and secure image storage policies.
+7. Add tests for cross-seller isolation, buyer privacy, concurrent last-slot reservations, expired quotes and payment replay.
+8. Verify backup/restore, monitoring, export and iPhone/Android end-to-end flows before launch.
 
 No credentials, service-role keys, payment secrets or customer data belong in this repository. Never expose a Supabase service-role key in browser code.
