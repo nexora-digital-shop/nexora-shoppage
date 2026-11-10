@@ -97,7 +97,13 @@ NEXORA must support two separate payment flows:
 
 ### A1. International e-wallets and payment-method standards
 
-The international payment layer must be country-aware and modular. Do not assume one wallet or payment method works in every country. Display only methods that are enabled for the buyer's country/currency and that the seller's PSP account is eligible to accept.
+The payment strategy must cover three geographic markets from the product-design stage: **Indonesia, the wider Asia-Pacific region, and international markets worldwide**. The integration must be country-aware and modular. Do not assume one wallet or payment method works in every country. Display only methods that are enabled for the buyer's country/currency and that the seller's PSP account is eligible to accept.
+
+Geographic coverage to design for:
+- Indonesia: QRIS, bank virtual accounts/transfers, and supported wallets such as GoPay, OVO, DANA, and ShopeePay.
+- Asia-Pacific: evaluate country-specific methods as relevant to each launch market, including Alipay and WeChat Pay (China), PayPay and convenience-store/bank methods (Japan), Kakao Pay and Naver Pay (South Korea), GrabPay and regional bank-transfer/real-time payment methods (Southeast Asia), UPI (India), and other locally established methods in markets such as Singapore, Malaysia, Thailand, the Philippines, Vietnam, and Hong Kong.
+- International: cards and digital wallets such as Visa, Mastercard, American Express, Apple Pay, Google Pay, and PayPal, plus locally preferred bank and account-to-account methods in Europe, the Americas, the Middle East, Africa, and other target regions.
+- This is a coverage target and evaluation list, not a claim that every method or country will be supported at launch. Actual availability depends on seller legal entity/country, buyer country, currency, PSP acquiring reach, business category, transaction type, settlement options, and compliance approval.
 
 - Global card rails where supported: Visa, Mastercard, American Express, and other networks supported by the PSP.
 - Global device wallets where supported: Apple Pay and Google Pay.
