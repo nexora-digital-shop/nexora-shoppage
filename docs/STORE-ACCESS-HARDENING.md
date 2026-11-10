@@ -1,6 +1,6 @@
 # NEXORA store-access hardening
 
-Status: migration committed; not applied to a live Supabase project and not yet runtime-tested.
+Status: migration 003 is committed. The owner reports it was executed successfully in Supabase and that the permission verification query returned the expected direct-write denials. The project has not been independently inspected; broader runtime and tenant-isolation tests remain.
 
 ## Risk addressed
 
@@ -19,7 +19,7 @@ The initial RLS policy allowed an authenticated store owner to insert or update 
 
 ## Required validation before connecting a real frontend
 
-Apply migrations 001, 002, and 003 in order to a disposable Supabase project. Then verify:
+The owner reports migrations 001–003 have already been applied. Reported SQL verification results: `anon_can_insert_store=false`, `user_can_insert_store=false`, `user_can_update_store=false`, `user_can_insert_profile=false`, `user_can_create_store=true`, `remaining_policies=13`. Extend validation with actual separate anonymous and authenticated sessions:
 
 1. Anonymous and authenticated clients cannot insert/update stores directly.
 2. An authenticated user can create one draft store through the RPC.
@@ -30,4 +30,4 @@ Apply migrations 001, 002, and 003 in order to a disposable Supabase project. Th
 7. One seller cannot read or alter another seller's private products.
 8. The Auth trigger creates exactly one profile for a new user.
 
-Do not run these migrations on a production database until reviewed and tested. Do not expose the Supabase service-role key in browser code. Store activation needs a separate trusted admin workflow; that workflow is not implemented yet.
+Do not rerun these migrations blindly; inspect the Supabase migration history first. The reported SQL checks are not a substitute for end-to-end testing. Do not expose the Supabase service-role key in browser code. Store activation needs a separate trusted admin workflow; that workflow is not implemented yet.
