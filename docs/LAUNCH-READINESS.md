@@ -47,6 +47,7 @@ The `marketplace.html` prototype has a static language switcher for Indonesian (
 
 ### 4. Authentication and account security
 - Owner-reported Supabase Auth URL Configuration currently has Site URL `http://localhost:3000` and an empty Redirect URLs list (2026-11-10); configure the real hosted URL and exact allowed callback paths after Cloudflare Pages is deployed.
+- The seller portal now sends email confirmations back to `/seller-portal.html` on the current host. After deployment, add the exact `https://<host>/seller-portal.html` URL to the Supabase Redirect URLs allowlist; do not guess the host before deployment.
 - Email/password or supported sign-in with verified email.
 - Secure password hashing/session handling, password reset and account deletion.
 - Role-based access for buyer, seller and platform admin.
