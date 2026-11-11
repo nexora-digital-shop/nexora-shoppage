@@ -8,7 +8,7 @@ The seller portal at [`seller-portal.html`](../seller-portal.html) now contains 
 
 - Supabase Auth signup, password login, session restoration and logout.
 - An authenticated call to `public.create_my_store` using the named arguments `p_name`, `p_slug`, `p_country_code`, `p_default_currency` and `p_description`.
-- The frontend argument names match the function signature in migration `202611100002_auth_and_store_onboarding.sql`.
+- The frontend argument names match the function signature in migration `202611100002_auth_and_store_onboarding.sql`. Signup sets `emailRedirectTo` to the current host's `/seller-portal.html` path so the email-confirmation link returns to the portal.
 - The database function derives ownership from `auth.uid()`, validates the store name/slug/country/currency and always inserts a `draft` store. Browser validation is only a usability aid.
 - The browser uses the Supabase publishable key. No service-role key or secret key is present in the seller portal source.
 - A missing Supabase JavaScript CDN library and network exceptions now produce visible error messages instead of leaving the page in an unhandled failure state.
@@ -17,6 +17,7 @@ The seller portal at [`seller-portal.html`](../seller-portal.html) now contains 
 Relevant implementation commits:
 - Initial connection: https://github.com/nexora-digital-shop/nexora-shoppage/commit/ce3ce7794ecbee3085d7dd2538c5df45d632c6a2
 - Error handling and registration UI correction: https://github.com/nexora-digital-shop/nexora-shoppage/commit/dae29470226cf3fea5cafc265eb46c3c303b180d
+- Email confirmation redirect: https://github.com/nexora-digital-shop/nexora-shoppage/commit/39eb4b71e67cd560cf2013102cdb8d2f12877b02
 
 ## Checks completed in this repository review
 
@@ -32,7 +33,7 @@ These are static source checks only. They do not prove that Supabase accepts a s
 The owner reported on 2026-11-10 that Supabase Authentication → URL Configuration still had Site URL `http://localhost:3000` and an empty Redirect URLs list. That configuration must be revisited only after a real HTTPS hosting URL exists.
 
 1. Deploy the repository to the chosen free HTTPS host and verify the actual public URL.
-2. In Supabase Authentication → URL Configuration, set the Site URL to that exact public URL and add only the required exact redirect URL(s), including the seller portal callback path if used.
+2. In Supabase Authentication → URL Configuration, set the Site URL to the exact public host URL and add the exact allowed redirect URL `https://<your-host>/seller-portal.html` (replace the placeholder with the real deployed host). This must match the frontend's `emailRedirectTo` value.
 3. Verify the email-confirmation link returns to the hosted seller portal.
 4. Test signup, confirmation, login, session persistence, logout and one authenticated store creation with a dedicated test account.
 5. Verify the created database row has the authenticated user's ID as owner and `status='draft'`; verify a second store attempt is rejected.
