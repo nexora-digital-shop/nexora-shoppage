@@ -1,5 +1,5 @@
 -- NEXORA migration 002: auth profile bootstrap and safe seller onboarding
--- Status: committed starter migration; NOT applied to a live Supabase project.
+-- Status: owner reports this migration was applied to Supabase on 2026-11-10; not independently verified. Do not rerun blindly.
 begin;
 
 -- Automatically provision a minimal profile whenever Supabase Auth creates a user.
