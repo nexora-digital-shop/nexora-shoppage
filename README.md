@@ -8,7 +8,7 @@ NEXORA is being developed as a multilingual commerce platform for independent se
 | File | Purpose | Current limitation |
 |---|---|---|
 | [Marketplace homepage demo](./marketplace.html) | Responsive marketplace homepage with Indonesian, English, Korean and Japanese language switching, browser-language detection, catalog search/filter and listing-type showcase | Static demo; sample products only, no real accounts/orders/payments or live hosting; other pages are not yet fully localized |
-| [Seller portal demo](./seller-portal.html) | Login/register screen, store onboarding form and seller dashboard preview | UI prototype only; no authentication or database writes |
+| [Seller portal](./seller-portal.html) | Initial Supabase Auth signup/login/logout and authenticated `create_my_store` RPC call, plus seller dashboard preview | Runtime flow is not yet independently tested; dashboard/product/order data are still placeholders; hosted Auth redirects are not configured |
 | [ShopPage prototype](./index.html) | Product-page builder concept | Browser-only; no account or cloud save |
 | [Storefront demo](./storefront-demo.html) | Sample shop, cart and buyer details | Demo only; WhatsApp handoff, no server-side orders or payments |
 | [Seller Studio demo](./seller-dashboard-demo.html) | Store settings and product management | Browser local storage only; no shared database |
@@ -24,7 +24,7 @@ NEXORA is being developed as a multilingual commerce platform for independent se
 ## Try the prototypes
 
 1. Open [marketplace.html](./marketplace.html) for the responsive NEXORA marketplace homepage demo.
-2. Open [seller-portal.html](./seller-portal.html) to inspect the account, store onboarding and seller dashboard interface (demo only). You can also download the project files or clone the repository.
+2. Open [seller-portal.html](./seller-portal.html) to inspect the account and seller interface. The first Supabase Auth and store-creation calls are wired, but do not use real credentials until the hosted URL and Auth redirects have been configured and tested. You can also download the project files or clone the repository.
 3. Open `seller-dashboard-demo.html` in a modern browser to add sample products.
 4. Open `storefront-demo.html` separately to explore the buyer experience.
 5. These are independent browser demos. They do not sync automatically. Do not enter real customer or payment data.
@@ -45,7 +45,7 @@ NEXORA is intended to become a responsive, mobile-first, multilingual marketplac
 
 ## Launch and safety status
 
-**Not production-ready.** The owner reports that a Supabase project was created and migrations 001–003 were run successfully. The reported permission checks show direct store/profile writes denied and the authenticated store-creation RPC allowed. This has not been independently inspected through a Supabase connection. The frontend is still a static prototype and is not connected to Supabase; Auth redirect configuration is incomplete; no live deployment, server-side order flow, payment integration, or iPhone/Android end-to-end test is confirmed.
+**Not production-ready.** The owner reports that a Supabase project was created and migrations 001–003 were run successfully. The reported permission checks show direct store/profile writes denied and the authenticated store-creation RPC allowed; this has not been independently inspected through a Supabase connection. The seller portal now contains initial Supabase Auth signup/login/logout and a call to the authenticated store-creation RPC, but the live flow has not been independently tested. Auth redirect configuration is incomplete; no verified live deployment, live product/order flow, payment integration, or iPhone/Android end-to-end test is confirmed.
 
 Never use the current demos to collect real orders or payments. Payment credentials, card data, OTPs and wallet credentials must not be collected by these prototype pages.
 
