@@ -1,5 +1,5 @@
 -- NEXORA initial PostgreSQL schema (Supabase-compatible)
--- Status: reviewed starter migration; NOT applied to any live database.
+-- Status: owner reports this migration was applied to Supabase on 2026-11-10; not independently verified. Do not rerun blindly.
 -- Apply only after creating a project and reviewing the security checklist.
 begin;
 
