@@ -1,6 +1,6 @@
 # NEXORA account and seller onboarding
 
-Status: Requirements, starter database functions and static portal UI prototype are committed. The owner reports a Supabase project exists and migrations 001–003 were executed successfully; Auth URL configuration is not yet ready for a hosted frontend, and the UI is not connected to Supabase. See [seller-portal.html](../seller-portal.html).
+Status: Requirements, starter database functions and the first Supabase-connected seller portal are committed. The portal now wires signup, login, logout and the authenticated `create_my_store` RPC using the project's publishable key. The owner reports migrations 001–003 were executed successfully, but live runtime behavior has not been independently tested and Auth URL configuration is not yet ready for a hosted frontend. See [seller-portal.html](../seller-portal.html) and [Frontend auth integration](./FRONTEND-AUTH-INTEGRATION.md).
 
 ## Account onboarding flow
 
@@ -33,4 +33,4 @@ The owner reports that these migrations have already been run in Supabase. Befor
 See [Store access hardening](./STORE-ACCESS-HARDENING.md) for required security tests.
 
 The owner reports successful migration execution. Runtime tests are still required for signup trigger behavior, duplicate store creation, unauthenticated calls, invalid slugs and cross-account ownership before production. The assistant has not independently inspected the Supabase project.
-\n## Seller portal UI prototype\n\nThe static `seller-portal.html` file contains login/register screens, a store onboarding form and a sample seller dashboard. These screens deliberately do not create accounts, authenticate users, or persist store data. Browser-side validation is for user feedback only; the database function remains responsible for validating and deriving ownership from the authenticated server session. Do not collect real credentials or personal data with this prototype.\n
+\n## Seller portal UI prototype\n\nThe `seller-portal.html` file now calls Supabase Auth for signup/login/logout and calls `create_my_store` for authenticated store creation. The seller dashboard remains a placeholder and does not yet load live products or orders. Browser-side validation is for user feedback only; the database function remains responsible for validating input and deriving ownership from the authenticated session. Do not collect real customer data until hosted Auth redirects and the end-to-end flow have been tested.\n
