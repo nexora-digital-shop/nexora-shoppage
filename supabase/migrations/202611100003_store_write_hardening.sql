@@ -1,5 +1,5 @@
 -- NEXORA migration 003: prevent seller-controlled store activation
--- Status: committed hardening migration; NOT applied to a live Supabase project.
+-- Status: owner reports this migration was applied to Supabase on 2026-11-10; not independently verified. Do not rerun blindly.
 -- Store creation must go through create_my_store(); activation is reserved for
 -- a trusted admin workflow that has not yet been implemented.
 
