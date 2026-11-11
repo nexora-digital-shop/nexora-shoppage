@@ -1,19 +1,21 @@
 # NEXORA — Launch Readiness
 
-Last updated: 2026-11-10
+Last updated: 2026-11-11
 
 ## Repository-verified and owner-reported project status
 
-The repository contains three browser-side prototypes and product/technical specifications:
+The repository contains browser-side prototypes, a partially connected seller portal and product/technical specifications:
 - `index.html`: ShopPage prototype
+- `marketplace.html`: four-language static marketplace demo
+- `seller-portal.html`: initial Supabase Auth signup/login/logout and authenticated store-creation RPC integration; runtime unverified
 - `storefront-demo.html`: storefront/cart/WhatsApp handoff demo
 - `seller-dashboard-demo.html`: local seller dashboard demo
 - `docs/ORDER-CHECKOUT-MVP.md`: order and checkout requirements
 - `docs/FREE-PLAN-POLICY.md`: free plan decision
 
-These are development artifacts. The owner reports that a Supabase project exists and migrations 001–003 were executed successfully; reported SQL checks deny direct client store/profile writes and allow the authenticated store-creation RPC. These results have not been independently inspected through a Supabase connection and do not establish production readiness. The frontend remains disconnected and no live public deployment is confirmed.
+The owner reports that a Supabase project exists and migrations 001–003 were executed successfully; reported SQL checks deny direct client store/profile writes and allow the authenticated store-creation RPC. These results have not been independently inspected through a Supabase connection and do not establish production readiness. The seller portal now contains initial Supabase Auth and store-creation RPC calls, but the live flow has not been independently tested. The wider marketplace remains incomplete and no live public deployment is confirmed.
 
-The `marketplace.html` prototype now has a static language switcher for Indonesian (`id`), English (`en`), Korean (`ko`) and Japanese (`ja`), with browser-language detection and a locally saved language preference. Translation-key coverage and JavaScript syntax were checked in the repository update; visual/browser testing, real-device testing and localization of the seller portal, storefront and authenticated flows remain outstanding.
+The `marketplace.html` prototype has a static language switcher for Indonesian (`id`), English (`en`), Korean (`ko`) and Japanese (`ja`), with browser-language detection and a locally saved language preference. Translation-key coverage and JavaScript syntax were checked in the repository update. The seller portal now calls Supabase Auth for signup/login/logout and invokes the authenticated `create_my_store` RPC. Its inline JavaScript passed a static syntax parse; the browser uses a publishable key, has a guard for a missing Supabase CDN library, and handles network exceptions. The unused buyer/seller selector was removed because no server-enforced role model exists yet. These are source-level checks only; visual/browser testing, actual Auth/database transactions, real-device testing and localization of the seller portal/storefront remain outstanding. See [Frontend auth integration](./FRONTEND-AUTH-INTEGRATION.md).
 
 ## Release gates (must pass before public commerce launch)
 
