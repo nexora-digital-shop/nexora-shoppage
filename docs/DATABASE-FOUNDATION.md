@@ -25,7 +25,7 @@ See also [Account onboarding](./ACCOUNT-ONBOARDING.md) and [Store access hardeni
 
 ## Important limitations and next implementation work
 
-This is still a starter schema, not a production-ready backend. Although the owner reports successful execution in Supabase, the schema has not been independently inspected, fully tested with real authenticated and anonymous sessions, penetration-tested, or connected to the frontend. Do not rerun migrations blindly; first inspect the Supabase migration history and current schema.
+This is still a starter schema, not a production-ready backend. Although the owner reports successful execution in Supabase, the schema has not been independently inspected, fully tested with real authenticated and anonymous sessions, or penetration-tested. The seller portal now has an initial Auth connection and calls the store-creation RPC, but product, storefront, order and payment workflows are not connected. Do not rerun migrations blindly; first inspect the Supabase migration history and current schema.
 
 Before accepting real orders:
 1. Add server-side endpoints or carefully reviewed database functions for quote creation/acceptance, atomic slot reservation, order creation and cancellation.
