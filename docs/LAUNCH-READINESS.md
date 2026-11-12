@@ -1,6 +1,6 @@
 # NEXORA — Launch Readiness
 
-Last updated: 2026-11-11
+Last updated: 2026-11-12
 
 ## Repository-verified and owner-reported project status
 
@@ -37,9 +37,9 @@ The `marketplace.html` prototype has a static language switcher for Indonesian (
 - No public launch until critical buyer and seller workflows pass on iPhone Safari as well as Android and desktop.
 
 ### 3. Backend and database
-- Starter schema and migrations 001–003 are committed; the owner reports they have been applied to a Supabase project.
+- Starter schema and migrations 001–003 are committed; the owner reports they have been applied to a Supabase project. Migration 004 adds database-side 500-character store-description validation and explicitly limits the onboarding RPC to authenticated callers; it is committed but not yet applied.
 - Reported checks: anonymous store insert denied; authenticated direct store insert/update denied; profile insert denied; authenticated `create_my_store` RPC allowed; 13 policies remain.
-- Independently verify the live schema, auth trigger, RPC behavior, seller-to-seller isolation, order writes, payment events and subscription tables before calling the backend ready.
+- Apply migration 004 only after confirming migrations 001–003 are already present, then test the 500/501-character description boundary and RPC grants as documented in [Store onboarding validation](./STORE-ONBOARDING-VALIDATION.md).\n- Independently verify the live schema, auth trigger, RPC behavior, seller-to-seller isolation, order writes, payment events and subscription tables before calling the backend ready.
 - Create/confirm production database schema and migrations for users, seller profiles, stores, products, orders, order items, payment events and subscriptions.
 - Enforce tenant isolation: sellers can only access their own stores, products and orders.
 - Add server-side validation, rate limits, audit logging and safe file/image upload handling.
