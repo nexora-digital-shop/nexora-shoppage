@@ -10,7 +10,7 @@ const errors = [];
 
 for (const file of files) {
   const html = readFileSync(resolve(root, file), "utf8");
-  const blocks = [...html.matchAll(/<script(?:\\s[^>]*)?>([\\s\\S]*?)<\\/script>/gi)];
+  const blocks = [...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)];
   if (blocks.length === 0) errors.push(file + ": no inline script block found");
   blocks.forEach((block, index) => {
     try {
@@ -22,7 +22,7 @@ for (const file of files) {
 }
 
 const marketplace = readFileSync(resolve(root, "marketplace.html"), "utf8");
-const match = marketplace.match(/const translations=(\\{[\\s\\S]*?\\});\\s*const cards=/);
+const match = marketplace.match(/const translations=(\{[\s\S]*?\});\s*const cards=/);
 if (!match) {
   errors.push("marketplace.html: translation object could not be located");
 } else {
@@ -40,7 +40,7 @@ if (!match) {
       }
     }
     const markupKeys = new Set(
-      [...marketplace.matchAll(/\\bdata-i18n(?:-html|-placeholder|-aria)?="([^"]+)"/g)]
+      [...marketplace.matchAll(/\bdata-i18n(?:-html|-placeholder|-aria)?="([^"]+)"/g)]
         .map(item => item[1])
     );
     for (const locale of requiredLocales) {
