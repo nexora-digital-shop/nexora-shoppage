@@ -7,7 +7,7 @@ NEXORA is being developed as a multilingual commerce platform for independent se
 
 | File | Purpose | Current limitation |
 |---|---|---|
-| [Marketplace homepage demo](./marketplace.html) | Responsive marketplace homepage with Indonesian, English, Korean and Japanese language switching, browser-language detection, catalog search/filter and listing-type showcase | Static demo; sample products only, no real accounts/orders/payments or live hosting; other pages are not yet fully localized |
+| [Marketplace homepage demo](./marketplace.html) | Responsive four-language marketplace demo (Indonesian, English, Korean, Japanese) with browser-language detection, catalog search/filter, and links to the early-test seller portal | Static demo; sample products only, no real accounts/orders/payments or live hosting; other pages are not yet fully localized |
 | [Seller portal](./seller-portal.html) | Initial Supabase Auth signup/login/logout and authenticated `create_my_store` RPC call, plus seller dashboard preview | Runtime flow is not yet independently tested; dashboard/product/order data are still placeholders; hosted Auth redirects are not configured |
 | [ShopPage prototype](./index.html) | Product-page builder concept | Browser-only; no account or cloud save |
 | [Storefront demo](./storefront-demo.html) | Sample shop, cart and buyer details | Demo only; WhatsApp handoff, no server-side orders or payments |
@@ -17,7 +17,8 @@ NEXORA is being developed as a multilingual commerce platform for independent se
 | [Jastip MVP](./docs/JASTIP-MVP.md) | Jastiper, preorder and quote workflows | Requirements, not yet implemented |
 | [Database foundation](./docs/DATABASE-FOUNDATION.md) | Initial PostgreSQL schema and RLS plan | Owner reports all three migrations applied to Supabase; frontend is not connected and the live database has not been independently inspected |
 | [Account onboarding](./docs/ACCOUNT-ONBOARDING.md) | Signup/profile/store creation flow | Supabase project exists per owner report; Auth redirect configuration and frontend connection are still incomplete |
-| [Store access hardening](./docs/STORE-ACCESS-HARDENING.md) | Prevents client-side store creation and self-activation | Owner reports migration applied and direct-write checks returned expected denials; broader runtime tests remain |\n| [Store onboarding validation](./docs/STORE-ONBOARDING-VALIDATION.md) | Server-side 500-character store-description limit and onboarding test plan | Migration 004 is committed but still must be applied and tested in Supabase |
+| [Store access hardening](./docs/STORE-ACCESS-HARDENING.md) | Prevents client-side store creation and self-activation | Owner reports migration applied and direct-write checks returned expected denials; broader runtime tests remain |
+| [Store onboarding validation](./docs/STORE-ONBOARDING-VALIDATION.md) | Server-side 500-character store-description limit and onboarding test plan | Migration 004 is committed but still must be applied and tested in Supabase |
 | [Technical roadmap](./docs/TECHNICAL-ROADMAP.md) | Architecture and milestones | Work in progress |
 | [Launch readiness](./docs/LAUNCH-READINESS.md) | Production release gates | Checklist; not yet passed |
 
