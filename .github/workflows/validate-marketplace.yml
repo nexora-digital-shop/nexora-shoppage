@@ -1,0 +1,33 @@
+name: Validate NEXORA marketplace
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "marketplace.html"
+      - "seller-portal.html"
+      - "scripts/check-marketplace.mjs"
+      - ".github/workflows/validate-marketplace.yml"
+  pull_request:
+    paths:
+      - "marketplace.html"
+      - "seller-portal.html"
+      - "scripts/check-marketplace.mjs"
+      - ".github/workflows/validate-marketplace.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  static-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Validate marketplace and seller portal
+        run: node scripts/check-marketplace.mjs
