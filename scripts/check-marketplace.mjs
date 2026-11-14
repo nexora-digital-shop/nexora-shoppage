@@ -60,6 +60,23 @@ if (!match) {
   }
 }
 
+const sellerPortal = readFileSync(resolve(root, "seller-portal.html"), "utf8");
+for (const required of [
+  'id="dashboardNotice"',
+  'id="productCount"',
+  'id="orderCount"',
+  'id="storeStatus"',
+  "client.from('stores')",
+  "client.from('products')",
+  "client.from('orders')",
+  "client.auth.onAuthStateChange"
+]) {
+  if (!sellerPortal.includes(required)) errors.push("seller-portal.html: missing database-backed dashboard requirement: " + required);
+}
+if (/<strong>0<\/strong>/.test(sellerPortal)) {
+  errors.push("seller-portal.html: hard-coded zero dashboard statistic found; use database-backed values.");
+}
+
 const languageOptions = [...marketplace.matchAll(/<option value="(id|en|ko|ja)">/g)].map(x => x[1]);
 for (const locale of requiredLocales) {
   if (!languageOptions.includes(locale)) errors.push("Language selector missing option: " + locale);
