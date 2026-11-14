@@ -1,21 +1,21 @@
 # NEXORA — Launch Readiness
 
-Last updated: 2026-11-12
+Last updated: 2026-11-14
 
 ## Repository-verified and owner-reported project status
 
 The repository contains browser-side prototypes, a partially connected seller portal and product/technical specifications:
 - `index.html`: ShopPage prototype
 - `marketplace.html`: four-language static marketplace demo
-- `seller-portal.html`: initial Supabase Auth signup/login/logout and authenticated store-creation RPC integration; runtime unverified
+- `seller-portal.html`: initial Supabase Auth signup/login/logout, authenticated store-creation RPC, and read-only dashboard queries for the signed-in seller's store/product/order counts; runtime unverified
 - `storefront-demo.html`: storefront/cart/WhatsApp handoff demo
 - `seller-dashboard-demo.html`: local seller dashboard demo
 - `docs/ORDER-CHECKOUT-MVP.md`: order and checkout requirements
 - `docs/FREE-PLAN-POLICY.md`: free plan decision
 
-The owner reports that a Supabase project exists and migrations 001–003 were executed successfully; reported SQL checks deny direct client store/profile writes and allow the authenticated store-creation RPC. These results have not been independently inspected through a Supabase connection and do not establish production readiness. The seller portal now contains initial Supabase Auth and store-creation RPC calls, but the live flow has not been independently tested. The wider marketplace remains incomplete and no live public deployment is confirmed.
+The owner reports that a Supabase project exists and migrations 001–003 were executed successfully; reported SQL checks deny direct client store/profile writes and allow the authenticated store-creation RPC. These results have not been independently inspected through a Supabase connection and do not establish production readiness. The seller portal now contains initial Supabase Auth and store-creation RPC calls plus read-only dashboard queries for store/product/order counts, but the live flow has not been independently tested. The wider marketplace remains incomplete and no live public deployment is confirmed.
 
-The `marketplace.html` prototype has a static language switcher for Indonesian (`id`), English (`en`), Korean (`ko`) and Japanese (`ja`), with browser-language detection and a locally saved language preference. Translation-key coverage and JavaScript syntax were checked in the repository update. The seller portal now calls Supabase Auth for signup/login/logout and invokes the authenticated `create_my_store` RPC. Its inline JavaScript passed a static syntax parse; the browser uses a publishable key, has a guard for a missing Supabase CDN library, and handles network exceptions. The unused buyer/seller selector was removed because no server-enforced role model exists yet. These are source-level checks only; visual/browser testing, actual Auth/database transactions, real-device testing and localization of the seller portal/storefront remain outstanding. See [Frontend auth integration](./FRONTEND-AUTH-INTEGRATION.md).
+The `marketplace.html` prototype has a static language switcher for Indonesian (`id`), English (`en`), Korean (`ko`) and Japanese (`ja`), with browser-language detection and a locally saved language preference. Translation-key coverage and JavaScript syntax were checked in the repository update. The seller portal now calls Supabase Auth for signup/login/logout, invokes the authenticated `create_my_store` RPC, and reads the signed-in seller's store/product/order counts. Its inline JavaScript passed a static syntax parse; the browser uses a publishable key, has a guard for a missing Supabase CDN library, and handles network exceptions. The unused buyer/seller selector was removed because no server-enforced role model exists yet. These are source-level checks only; visual/browser testing, actual Auth/database transactions, real-device testing and localization of the seller portal/storefront remain outstanding. See [Frontend auth integration](./FRONTEND-AUTH-INTEGRATION.md).
 
 ## Release gates (must pass before public commerce launch)
 
@@ -39,7 +39,8 @@ The `marketplace.html` prototype has a static language switcher for Indonesian (
 ### 3. Backend and database
 - Starter schema and migrations 001–003 are committed; the owner reports they have been applied to a Supabase project. Migration 004 adds database-side 500-character store-description validation and explicitly limits the onboarding RPC to authenticated callers; it is committed but not yet applied.
 - Reported checks: anonymous store insert denied; authenticated direct store insert/update denied; profile insert denied; authenticated `create_my_store` RPC allowed; 13 policies remain.
-- Apply migration 004 only after confirming migrations 001–003 are already present, then test the 500/501-character description boundary and RPC grants as documented in [Store onboarding validation](./STORE-ONBOARDING-VALIDATION.md).\n- Independently verify the live schema, auth trigger, RPC behavior, seller-to-seller isolation, order writes, payment events and subscription tables before calling the backend ready.
+- Apply migration 004 only after confirming migrations 001–003 are already present, then test the 500/501-character description boundary and RPC grants as documented in [Store onboarding validation](./STORE-ONBOARDING-VALIDATION.md).
+- Independently verify the live schema, auth trigger, RPC behavior, seller-to-seller isolation, order writes, payment events and subscription tables before calling the backend ready.
 - Create/confirm production database schema and migrations for users, seller profiles, stores, products, orders, order items, payment events and subscriptions.
 - Enforce tenant isolation: sellers can only access their own stores, products and orders.
 - Add server-side validation, rate limits, audit logging and safe file/image upload handling.
