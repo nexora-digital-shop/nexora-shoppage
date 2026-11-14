@@ -41,7 +41,7 @@ This remains a candidate architecture. GitHub is connected. The owner reports th
 
 ## Required user action
 
-Remaining owner actions: deploy the repository to Cloudflare Pages Free, then configure Supabase Auth Site URL and the exact seller-portal redirect URL using the real HTTPS host. Apply migration 004 only after confirming the first three migrations are present. Do not share passwords, OTPs, recovery codes, service-role keys, or payment credentials in chat. Never share passwords, OTPs, recovery codes, service-role keys, or payment credentials in chat.
+Remaining owner actions: deploy the repository to Cloudflare Pages Free, then configure Supabase Auth Site URL and the exact seller-portal redirect URL using the real HTTPS host. Apply migration 004 only after confirming the first three migrations are present. Do not share passwords, OTPs, recovery codes, service-role keys, or payment credentials in chat.
 
 ## Status
 
