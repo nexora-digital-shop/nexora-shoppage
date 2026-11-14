@@ -1,6 +1,6 @@
 # NEXORA — Zero-Upfront-Cost Technology Decision
 
-Last updated: 2026-11-10
+Last updated: 2026-11-14
 
 ## Decision
 
@@ -16,7 +16,7 @@ Preferred no-upfront-cost candidate architecture:
 | Image storage | Supabase Storage Free initially | Keeps product images separate from relational records | Storage and bandwidth quotas apply; enforce file type/size limits and public/private access rules |
 | Payments | No integration until PSP eligibility is verified | Avoids collecting funds incorrectly or exposing the project to unapproved fees | Payment providers may charge transaction fees and require business/KYC approval |
 
-This remains a candidate architecture. GitHub is connected. The owner reports that a Supabase project exists and migrations 001–003 were executed successfully; the project has not been independently inspected through a Supabase connector. Cloudflare Pages deployment and frontend integration are not confirmed.
+This remains a candidate architecture. GitHub is connected. The owner reports that a Supabase project exists and migrations 001–003 were executed successfully; the project has not been independently inspected through a Supabase connector. The seller portal source now contains initial Auth, store-creation RPC and read-only dashboard queries, but live behavior is not confirmed. Cloudflare Pages deployment is not confirmed.
 
 ## Cost rules
 
@@ -30,9 +30,9 @@ This remains a candidate architecture. GitHub is connected. The owner reports th
 
 1. Build a mobile-first web frontend in the existing GitHub repository; preserve a web experience that works without installing an app.
 2. Deploy the frontend to Cloudflare Pages from GitHub only after a free account/deployment path is confirmed.
-3. The owner has created a Supabase project and reports migrations 001–003 applied. Next, connect the frontend using only the project URL and public anon key. Never request or expose the service-role key in browser code.
-4. Add SQL migrations for profiles, seller stores, products, orders and order items. Enable row-level security and write policies before using real data.
-5. Implement authentication and seller/buyer flows against the backend.
+3. The owner has created a Supabase project and reports migrations 001–003 applied. The seller portal source already uses the project URL and publishable key; verify signup, email confirmation, session persistence, store creation and dashboard reads only after the hosted URL and Auth redirects are configured. Never request or expose the service-role key in browser code.
+4. Review the committed migrations in order. Migrations 001–003 are reported applied by the owner; migration 004 is committed but pending. Verify row-level security and write policies before using real data.
+5. Complete runtime tests for authentication and store onboarding, then implement remaining seller/buyer flows against the backend.
 6. Enforce the Free plan quota on the server/database, not localStorage.
 7. Add file uploads with strict validation and storage policies.
 8. Keep checkout in test/demo mode until a PSP confirms Indonesia marketplace support, seller onboarding/KYC, settlement, fees and legal eligibility.
@@ -41,15 +41,16 @@ This remains a candidate architecture. GitHub is connected. The owner reports th
 
 ## Required user action
 
-Remaining owner actions: finish the Supabase Auth URL Configuration after a Cloudflare Pages URL exists, and provide the Supabase project URL plus public anon key through a safe configuration path when the frontend integration is ready. Never share passwords, OTPs, recovery codes, service-role keys, or payment credentials in chat.
+Remaining owner actions: deploy the repository to Cloudflare Pages Free, then configure Supabase Auth Site URL and the exact seller-portal redirect URL using the real HTTPS host. Apply migration 004 only after confirming the first three migrations are present. Do not share passwords, OTPs, recovery codes, service-role keys, or payment credentials in chat. Never share passwords, OTPs, recovery codes, service-role keys, or payment credentials in chat.
 
 ## Status
 
 - Replit creation attempt: blocked by `requires_active_subscription`; no app was created.
 - GitHub source repository: available.
 - Cloudflare Pages project: not created or deployed.
-- Supabase project: created per owner report; migrations 001–003 reportedly executed; frontend not connected; Auth redirect allow-list incomplete. No project credentials are stored in GitHub.
+- Supabase project: created per owner report; migrations 001–003 reportedly executed; seller portal has initial frontend integration in source but no live runtime test; migration 004 pending; Auth redirect allow-list incomplete. No service-role key is stored in frontend code.
 - Live NEXORA URL: not available yet.
+- Public competitive scan: completed from public GitHub READMEs on 2026-11-14; it does not establish market size, competitor traction or customer demand.
 - Auth URL configuration (owner-reported): Site URL is `http://localhost:3000`; Redirect URLs list is empty. This is a temporary development setting, not a hosted production configuration.
 - iPhone Safari testing: not performed yet.
 
