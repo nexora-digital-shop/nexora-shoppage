@@ -1,6 +1,6 @@
 # NEXORA frontend authentication integration checkpoint
 
-Last updated: 2026-11-11
+Last updated: 2026-11-14
 
 ## Repository-verified implementation
 
@@ -19,6 +19,8 @@ Relevant implementation commits:
 - Initial connection: https://github.com/nexora-digital-shop/nexora-shoppage/commit/ce3ce7794ecbee3085d7dd2538c5df45d632c6a2
 - Error handling and registration UI correction: https://github.com/nexora-digital-shop/nexora-shoppage/commit/dae29470226cf3fea5cafc265eb46c3c303b180d
 - Email confirmation redirect: https://github.com/nexora-digital-shop/nexora-shoppage/commit/39eb4b71e67cd560cf2013102cdb8d2f12877b02
+- Database-backed seller dashboard: https://github.com/nexora-digital-shop/nexora-shoppage/commit/322cb0a12367d8f185d0945a852ca1243cc2b7ed
+- Static dashboard assertions: https://github.com/nexora-digital-shop/nexora-shoppage/commit/79a66f4bcc225ec2d1b780ae0d03e6052cd3f4c8
 
 ## Checks completed in this repository review
 
