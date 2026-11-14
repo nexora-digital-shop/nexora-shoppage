@@ -20,6 +20,7 @@ NEXORA is being developed as a multilingual commerce platform for independent se
 | [Store access hardening](./docs/STORE-ACCESS-HARDENING.md) | Prevents client-side store creation and self-activation | Owner reports migration applied and direct-write checks returned expected denials; broader runtime tests remain |
 | [Store onboarding validation](./docs/STORE-ONBOARDING-VALIDATION.md) | Server-side 500-character store-description limit and onboarding test plan | Migration 004 is committed but still must be applied and tested in Supabase |
 | [Technical roadmap](./docs/TECHNICAL-ROADMAP.md) | Architecture and milestones | Work in progress |
+| [Public competitive scan](./docs/COMPETITIVE-SCAN-2026-11-14.md) | Public GitHub research on jastip and multi-vendor alternatives | Technical/product scan only; no customer or market-size validation |
 | [Launch readiness](./docs/LAUNCH-READINESS.md) | Production release gates | Checklist; not yet passed |
 
 ## Try the prototypes
