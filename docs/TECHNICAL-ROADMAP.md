@@ -1,7 +1,7 @@
 # NEXORA ShopPage — Technical Roadmap
 
 Last updated: 2026-11-10
-Status: Planning document. No backend or subscription enforcement is deployed.
+Status: Planning document. A Supabase starter schema and initial Auth/store-onboarding code exist; live behavior is not independently verified. A complete commerce backend and subscription enforcement are not deployed.
 
 ## Current verified baseline
 
@@ -10,12 +10,12 @@ Status: Planning document. No backend or subscription enforcement is deployed.
 - Interactive storefront demo: storefront-demo.html; sample cart and WhatsApp order handoff only, with no server-side order persistence or integrated payment processing.
 - Seller dashboard prototype: seller-dashboard-demo.html; local-only store settings and product CRUD with JSON backup/import, no account or server sync.
 - Order and checkout implementation specification: docs/ORDER-CHECKOUT-MVP.md.
-- Initial Supabase-compatible PostgreSQL migration: supabase/migrations/202611100001_initial_marketplace.sql; committed but not applied or deployed. See docs/DATABASE-FOUNDATION.md.
-- Account onboarding migration: supabase/migrations/202611100002_auth_and_store_onboarding.sql; profile trigger and authenticated store-creation function committed, not applied or tested against a live Supabase project. See docs/ACCOUNT-ONBOARDING.md.
-- Store access hardening migration: supabase/migrations/202611100003_store_write_hardening.sql; removes direct client store writes so sellers cannot self-activate. Committed, not applied or runtime-tested. See docs/STORE-ACCESS-HARDENING.md.
+- Initial Supabase-compatible PostgreSQL migration: `supabase/migrations/202611100001_initial_marketplace.sql`; owner reports it was applied to Supabase on 2026-11-10; not independently verified. See `docs/DATABASE-FOUNDATION.md`.
+- Account onboarding migration: `supabase/migrations/202611100002_auth_and_store_onboarding.sql`; owner reports it was applied on 2026-11-10; profile trigger and authenticated store-creation function remain untested against a live project. See `docs/ACCOUNT-ONBOARDING.md`.
+- Store access hardening migration: `supabase/migrations/202611100003_store_write_hardening.sql`; owner reports it was applied on 2026-11-10; direct client store writes are reported denied, but broader runtime tests remain. See `docs/STORE-ACCESS-HARDENING.md`.
 - Prototype supports product details, a live preview, a language selector, currency selection, and standalone HTML export.
 - Free-plan policy is recorded in docs/FREE-PLAN-POLICY.md.
-- No user authentication, database, server-side quota enforcement, billing, or hosted customer product pages exist yet.
+- The seller portal contains initial Supabase Auth and store-creation calls, and its dashboard now reads the signed-in seller's store plus product/order counts from Supabase. These flows have not been runtime-tested. Server-side quota enforcement, billing, and hosted customer product pages do not exist yet.
 - GitHub Pages (if enabled) can host static files; it cannot securely enforce account-based quotas or subscriptions by itself.
 - Replit Agent access previously presented a subscription upgrade gate; do not assume it is available for implementation without a confirmed working app and access.
 
@@ -42,7 +42,7 @@ Do not advertise or charge these prices until features, billing, terms, support,
 
 ## Zero-upfront-cost stack candidate
 
-See [docs/FREE-STACK-DECISION.md](./FREE-STACK-DECISION.md) for the current no-cost candidate: GitHub for source, Cloudflare Pages Free for frontend hosting, and Supabase Free for authentication, PostgreSQL and initial image storage. These services are not yet connected or deployed; verify current free-tier terms and avoid any paid upgrade. Replit app creation was blocked by an active-subscription requirement and is no longer the chosen route.
+See [docs/FREE-STACK-DECISION.md](./FREE-STACK-DECISION.md) for the current no-cost candidate: GitHub for source, Cloudflare Pages Free for frontend hosting, and Supabase Free for authentication, PostgreSQL and initial image storage. Cloudflare Pages is not yet verified as deployed. A Supabase project exists per owner report, but its live schema and current free-tier terms have not been independently inspected; verify limits and avoid any paid upgrade. Replit app creation was blocked by an active-subscription requirement and is no longer the chosen route.
 
 ## Recommended implementation sequence
 
