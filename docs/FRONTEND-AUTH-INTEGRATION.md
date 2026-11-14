@@ -12,6 +12,7 @@ The seller portal at [`seller-portal.html`](../seller-portal.html) now contains 
 - The database function derives ownership from `auth.uid()`, validates the store name/slug/country/currency and always inserts a `draft` store. Browser validation is only a usability aid.
 - The browser uses the Supabase publishable key. No service-role key or secret key is present in the seller portal source.
 - A missing Supabase JavaScript CDN library and network exceptions now produce visible error messages instead of leaving the page in an unhandled failure state.
+- The seller dashboard now queries the signed-in user's store through the `stores` table and reads exact product/order counts from `products` and `orders`; the dashboard no longer displays hard-coded zero counts. Store creation navigates to this database-backed summary after the RPC succeeds.
 - The registration form uses one account for shopping and selling; the unused buyer/seller selector was removed because no server-enforced account-role model exists yet.
 
 Relevant implementation commits:
@@ -26,7 +27,7 @@ Relevant implementation commits:
 - The missing-CDN guard is present.
 - The frontend RPC argument names match the SQL function signature.
 
-These are static source checks only. They do not prove that Supabase accepts a signup, sends a confirmation email, creates a session, or writes a store row.
+These are static source checks only. They do not prove that Supabase accepts a signup, sends a confirmation email, creates a session, writes a store row, or returns dashboard counts under the live RLS policies.
 
 ## Required before live account testing
 
@@ -43,9 +44,10 @@ Do not share passwords, access tokens, service-role keys or payment credentials.
 
 ## Still incomplete
 
-- The seller dashboard still shows placeholder counts and does not fetch the user's store, products or orders.
+- The seller dashboard reads the user's store and product/order counts, but is read-only: product CRUD, order details/actions, and profile editing are not implemented.
 - Product creation/editing, image storage, public storefront publication, buyer cart, server-side order creation and payment verification are not implemented as live workflows.
 - Password reset, account deletion, abuse/rate controls and support operations are not complete.
+- The seller portal is currently Indonesian-only; the four-language selector is implemented on the marketplace homepage, not yet throughout the seller portal.
 - The seller portal currently depends on the Supabase JavaScript v2 CDN from jsDelivr; the page now shows an error if the library is unavailable, but CDN availability has not been tested across target networks.
 - Visual and end-to-end tests on iPhone/iOS Safari, Android Chrome and desktop are outstanding.
 
