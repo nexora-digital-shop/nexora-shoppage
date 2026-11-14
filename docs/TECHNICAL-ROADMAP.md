@@ -1,12 +1,14 @@
 # NEXORA ShopPage — Technical Roadmap
 
-Last updated: 2026-11-10
+Last updated: 2026-11-14
 Status: Planning document. A Supabase starter schema and initial Auth/store-onboarding code exist; live behavior is not independently verified. A complete commerce backend and subscription enforcement are not deployed.
 
 ## Current verified baseline
 
 - Public GitHub repository: nexora-digital-shop/nexora-shoppage
-- Responsive marketplace homepage demo: marketplace.html; mobile-first layout, iOS safe-area viewport support, sample catalog search/filter and non-functional login/seller entry points. Static demo only; no real accounts, live catalog, orders or payments.\n- Static product-page builder prototype: index.html
+- Responsive marketplace homepage demo: `marketplace.html`; mobile-first layout, iOS safe-area viewport support, sample catalog search/filter and links to the seller portal. Static demo only; no live catalog, orders or payments.
+- Public competitive scan: `docs/COMPETITIVE-SCAN-2026-11-14.md`; GitHub README research, not customer validation or market-size evidence.
+- Static product-page builder prototype: `index.html`
 - Interactive storefront demo: storefront-demo.html; sample cart and WhatsApp order handoff only, with no server-side order persistence or integrated payment processing.
 - Seller dashboard prototype: seller-dashboard-demo.html; local-only store settings and product CRUD with JSON backup/import, no account or server sync.
 - Order and checkout implementation specification: docs/ORDER-CHECKOUT-MVP.md.
@@ -42,7 +44,7 @@ Do not advertise or charge these prices until features, billing, terms, support,
 
 ## Zero-upfront-cost stack candidate
 
-See [docs/FREE-STACK-DECISION.md](./FREE-STACK-DECISION.md) for the current no-cost candidate: GitHub for source, Cloudflare Pages Free for frontend hosting, and Supabase Free for authentication, PostgreSQL and initial image storage. Cloudflare Pages is not yet verified as deployed. A Supabase project exists per owner report, but its live schema and current free-tier terms have not been independently inspected; verify limits and avoid any paid upgrade. Replit app creation was blocked by an active-subscription requirement and is no longer the chosen route.
+See [docs/FREE-STACK-DECISION.md](./FREE-STACK-DECISION.md) for the current no-cost candidate: GitHub for source, Cloudflare Pages Free for frontend hosting, and Supabase Free for authentication, PostgreSQL and initial image storage. The seller portal source now includes initial Auth, store creation and read-only dashboard queries, but live behavior is not independently verified. Cloudflare Pages is not confirmed deployed, and current free-tier terms have not been independently rechecked; avoid any paid upgrade. Replit app creation was blocked by an active-subscription requirement and is no longer the chosen route.
 
 ## Recommended implementation sequence
 
