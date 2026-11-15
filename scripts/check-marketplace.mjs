@@ -21,6 +21,17 @@ for (const file of files) {
   });
 }
 
+
+const rootEntry = readFileSync(resolve(root, "index.html"), "utf8");
+if (!/marketplace\\.html/.test(rootEntry) || !/location\\.replace|http-equiv=["']refresh/i.test(rootEntry)) {
+  errors.push("index.html: root entry must redirect visitors to marketplace.html");
+}
+try {
+  readFileSync(resolve(root, "shoppage.html"), "utf8");
+} catch {
+  errors.push("shoppage.html: preserved ShopPage builder prototype is missing");
+}
+
 const marketplace = readFileSync(resolve(root, "marketplace.html"), "utf8");
 const match = marketplace.match(/const translations=(\{[\s\S]*?\});\s*const cards=/);
 if (!match) {
@@ -87,4 +98,4 @@ if (errors.length) {
   for (const error of errors) console.error(" - " + error);
   process.exit(1);
 }
-console.log("NEXORA static checks passed: inline JavaScript syntax, four locale dictionaries, all visible translation keys, and language selector options.");
+console.log("NEXORA static checks passed: inline JavaScript syntax, root marketplace entry point, preserved ShopPage prototype, four locale dictionaries, visible translation keys, database-backed dashboard assertions, and language selector options.");
