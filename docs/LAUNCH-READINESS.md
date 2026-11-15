@@ -5,7 +5,7 @@ Last updated: 2026-11-14
 ## Repository-verified and owner-reported project status
 
 The repository contains browser-side prototypes, a partially connected seller portal and product/technical specifications:
-- `index.html`: ShopPage prototype
+- `index.html`: redirects to the marketplace demo for static hosting; the original ShopPage builder is preserved at `shoppage.html`
 - `marketplace.html`: four-language static marketplace demo
 - `seller-portal.html`: initial Supabase Auth signup/login/logout, authenticated store-creation RPC, and read-only dashboard queries for the signed-in seller's store/product/order counts; runtime unverified
 - `storefront-demo.html`: storefront/cart/WhatsApp handoff demo
@@ -19,7 +19,7 @@ The `marketplace.html` prototype has a static language switcher for Indonesian (
 
 ## Release gates (must pass before public commerce launch)
 
-### 1. Hosting and domain
+### 1. Hosting and domain\n- Repository root entry point now redirects to `marketplace.html`; the original ShopPage prototype is preserved at `shoppage.html`. See [Cloudflare Pages deployment runbook](./CLOUDFLARE-PAGES-DEPLOYMENT.md).
 - Choose a hosting provider with a genuinely usable free tier or obtain explicit approval for paid hosting.
 - Configure HTTPS, production environment variables, backups and uptime/error monitoring.
 - Deploy and verify the exact public URL on desktop, Android and iPhone.
