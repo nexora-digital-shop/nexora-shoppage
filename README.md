@@ -16,7 +16,7 @@ NEXORA is being developed as a multilingual commerce platform for independent se
 | [Order & checkout MVP](./docs/ORDER-CHECKOUT-MVP.md) | Order and payment requirements | Specification, not a live checkout |
 | [Jastip MVP](./docs/JASTIP-MVP.md) | Jastiper, preorder and quote workflows | Requirements, not yet implemented |
 | [Database foundation](./docs/DATABASE-FOUNDATION.md) | Initial PostgreSQL schema and RLS plan | Owner reports migrations 001–003 applied; frontend has initial Auth, store creation and read-only dashboard queries; live database behavior is not independently inspected |
-| [Account onboarding](./docs/ACCOUNT-ONBOARDING.md) | Signup/profile/store creation flow | Supabase project exists per owner report; Auth redirect configuration and frontend connection are still incomplete |
+| [Account onboarding](./docs/ACCOUNT-ONBOARDING.md) | Signup/profile/store creation flow | Initial Auth/store RPC and read-only dashboard code are present; live runtime and hosted Auth redirects remain untested |
 | [Store access hardening](./docs/STORE-ACCESS-HARDENING.md) | Prevents client-side store creation and self-activation | Owner reports migration applied and direct-write checks returned expected denials; broader runtime tests remain |
 | [Store onboarding validation](./docs/STORE-ONBOARDING-VALIDATION.md) | Server-side 500-character store-description limit and onboarding test plan | Migration 004 is committed but still must be applied and tested in Supabase |
 | [Technical roadmap](./docs/TECHNICAL-ROADMAP.md) | Architecture and milestones | Work in progress |
