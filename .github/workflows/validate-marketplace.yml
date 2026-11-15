@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - "marketplace.html"
+      - "index.html"
+      - "shoppage.html"
       - "seller-portal.html"
       - "scripts/check-marketplace.mjs"
       - ".github/workflows/validate-marketplace.yml"
