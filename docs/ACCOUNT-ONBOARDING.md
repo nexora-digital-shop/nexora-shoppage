@@ -1,36 +1,66 @@
 # NEXORA account and seller onboarding
 
-Status: Requirements, starter database functions and the first Supabase-connected seller portal are committed. The portal now wires signup, login, logout and the authenticated `create_my_store` RPC using the project's publishable key. The owner reports migrations 001–003 were executed successfully, but live runtime behavior has not been independently tested and Auth URL configuration is not yet ready for a hosted frontend. See [seller-portal.html](../seller-portal.html) and [Frontend auth integration](./FRONTEND-AUTH-INTEGRATION.md).
+Last updated: 2026-11-15
+
+## Current implementation status
+
+The repository contains the first Supabase-connected seller portal at [`seller-portal.html`](../seller-portal.html):
+
+- Email/password signup, login, session restoration and logout are wired to Supabase Auth.
+- Authenticated store creation calls `public.create_my_store` through the Supabase RPC.
+- The database function derives ownership from `auth.uid()` and creates a `draft` store.
+- After store creation, the portal queries the signed-in user's store and reads product/order counts. This dashboard is read-only; product CRUD and order management are not implemented.
+- The portal uses the project's publishable key, not a service-role key.
+- These are repository-verified source-code facts. Live signup, email confirmation, database writes, RLS behavior and dashboard reads have not been independently tested.
+
+The owner previously reported migrations 001–003 were applied successfully. Migration 004 is committed but remains pending application and verification. The assistant has no direct connection to the owner's Supabase project.
 
 ## Account onboarding flow
 
-1. Buyer or seller creates an account using the configured authentication provider.
-2. Email confirmation / provider verification is completed before privileged seller actions.
-3. A profile row is provisioned by the database auth trigger.
-4. A seller creates one store through the authenticated `create_my_store` database function.
-5. Store starts in `draft` state. Public visibility requires a separate publish/review workflow.
-6. Seller can then add ready-stock, jastip/preorder, or quote-request listings.
+1. A buyer or seller creates one account through Supabase Auth.
+2. Email confirmation is completed if required by the project's Auth settings.
+3. A database Auth trigger provisions the profile row.
+4. The authenticated user creates one store through `create_my_store`.
+5. The database assigns the owner from `auth.uid()`; the client cannot choose another owner.
+6. The store is created with `status='draft'`. Public visibility requires a separate trusted publish/review workflow, which is not implemented.
+7. Product creation and order management remain future implementation work.
 
 ## Security rules
 
-- Store ownership is derived from `auth.uid()`; browser input cannot choose another owner.
-- The store-creation function validates store name, URL slug, country code and currency code.
-- One-store-per-account is currently enforced by the database unique constraint. Revisit this only if multi-store accounts become an approved product requirement.
-- The function is executable by authenticated users only.
-- Migration 003 removes direct client insert/update access to stores. Sellers cannot self-activate or change store status; only a future trusted admin workflow may do that.
-- Profile rows are created by the Auth trigger; clients cannot insert arbitrary profile rows through the public API.
-- Do not expose Supabase service-role keys to the browser.
-- Add email verification, rate limiting, abuse detection, account recovery, deletion and seller review before public onboarding.
+- Store ownership must always be derived from the authenticated session, never from a user-supplied owner ID.
+- The store-creation function validates the store name, URL slug, country code and currency code.
+- Migration 004 adds database-side validation limiting the store description to 500 characters and explicitly grants RPC execution to authenticated users only. It is committed but not yet confirmed active in Supabase.
+- One-store-per-account is enforced by the current database design.
+- Direct client insert/update access to stores and direct client profile insertion are intended to remain denied.
+- Sellers must not be able to activate, pause or suspend their own stores.
+- Never expose a Supabase service-role/secret key in browser code.
+- Add and test account recovery, account deletion, abuse controls, rate limits, moderation and support before public onboarding.
 
-## Migration
+## Migration status
 
-The owner reports that these migrations have already been run in Supabase. Before any rerun, inspect the project's migration history and schema; do not apply them a second time blindly:
+The owner reports successful execution of:
 
 1. `supabase/migrations/202611100001_initial_marketplace.sql`
 2. `supabase/migrations/202611100002_auth_and_store_onboarding.sql`
 3. `supabase/migrations/202611100003_store_write_hardening.sql`
 
-See [Store access hardening](./STORE-ACCESS-HARDENING.md) for required security tests.
+Migration 004 is pending:
 
-The owner reports successful migration execution. Runtime tests are still required for signup trigger behavior, duplicate store creation, unauthenticated calls, invalid slugs and cross-account ownership before production. The assistant has not independently inspected the Supabase project.
-\n## Seller portal UI prototype\n\nThe `seller-portal.html` file now calls Supabase Auth for signup/login/logout and calls `create_my_store` for authenticated store creation. The seller dashboard remains a placeholder and does not yet load live products or orders. Browser-side validation is for user feedback only; the database function remains responsible for validating input and deriving ownership from the authenticated session. Do not collect real customer data until hosted Auth redirects and the end-to-end flow have been tested.\n
+- `supabase/migrations/202611120004_store_onboarding_validation.sql`
+
+Before applying or rerunning anything, inspect Supabase migration history and current schema. Do not rerun migrations 001–003 blindly. See [Store onboarding validation](./STORE-ONBOARDING-VALIDATION.md) and [Store access hardening](./STORE-ACCESS-HARDENING.md).
+
+## Required live tests before real users
+
+Use dedicated test accounts and no real customer information:
+
+1. Confirm the deployed HTTPS host is configured in Supabase Authentication → URL Configuration.
+2. Test signup and email confirmation redirect to `/seller-portal.html`.
+3. Test login, session restoration and logout.
+4. Create one store and verify its `owner_user_id` matches the authenticated user's ID and its status is `draft`.
+5. Confirm duplicate store creation is rejected.
+6. After migration 004 is applied, verify 500-character descriptions are accepted and 501-character descriptions are rejected by the database.
+7. Use a second account to test that one seller cannot read or modify another seller's private store data.
+8. Confirm anonymous users cannot call the onboarding RPC or directly write protected store/profile records.
+
+Do not enter real customer data or accept real orders/payments until these tests and the broader release gates pass.
