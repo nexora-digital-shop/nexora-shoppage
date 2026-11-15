@@ -23,7 +23,7 @@ for (const file of files) {
 
 
 const rootEntry = readFileSync(resolve(root, "index.html"), "utf8");
-if (!/marketplace\\.html/.test(rootEntry) || !/location\\.replace|http-equiv=["']refresh/i.test(rootEntry)) {
+if (!/marketplace\.html/.test(rootEntry) || !/location\.replace|http-equiv=["']refresh/i.test(rootEntry)) {
   errors.push("index.html: root entry must redirect visitors to marketplace.html");
 }
 try {
