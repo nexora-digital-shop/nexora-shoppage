@@ -22,6 +22,28 @@ for (const file of files) {
 }
 
 
+const localizationPath = resolve(root, "seller-portal-i18n.js");
+let sellerLocalization = "";
+try {
+  sellerLocalization = readFileSync(localizationPath, "utf8");
+  new vm.Script(sellerLocalization, { filename: "seller-portal-i18n.js" });
+} catch (error) {
+  errors.push("seller-portal-i18n.js: missing file or JavaScript syntax error: " + error.message);
+}
+const sellerPortalMarkup = readFileSync(resolve(root, "seller-portal.html"), "utf8");
+if (!sellerPortalMarkup.includes('id="languageSelect"') || !sellerPortalMarkup.includes('src="seller-portal-i18n.js"')) {
+  errors.push("seller-portal.html: four-language selector or localization script is missing");
+}
+for (const locale of requiredLocales) {
+  if (!new RegExp("\\b" + locale + ":\\s*\\{").test(sellerLocalization)) {
+    errors.push("seller-portal-i18n.js: missing locale dictionary " + locale);
+  }
+}
+const sellerTranslationPairs = [...sellerLocalization.matchAll(/"[^"]+":\\s*"/g)].length;
+if (sellerTranslationPairs < 250) {
+  errors.push("seller-portal-i18n.js: translation coverage is unexpectedly low (" + sellerTranslationPairs + " entries)");
+}
+
 const rootEntry = readFileSync(resolve(root, "index.html"), "utf8");
 if (!/marketplace\.html/.test(rootEntry) || !/location\.replace|http-equiv=["']refresh/i.test(rootEntry)) {
   errors.push("index.html: root entry must redirect visitors to marketplace.html");
