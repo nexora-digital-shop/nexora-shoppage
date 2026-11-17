@@ -8,7 +8,8 @@ NEXORA is being developed as a multilingual commerce platform for independent se
 | File | Purpose | Current limitation |
 |---|---|---|
 | [Marketplace homepage demo](./marketplace.html) | Responsive four-language marketplace demo (Indonesian, English, Korean, Japanese) with browser-language detection, catalog search/filter, and links to the early-test seller portal | Static demo; sample products only, no real accounts/orders/payments or live hosting; other pages are not yet fully localized |
-| [Seller portal](./seller-portal.html) | Initial Supabase Auth signup/login/logout, authenticated `create_my_store` RPC, and read-only store/product/order count queries | Runtime flow is not yet independently tested; product CRUD and order actions are not implemented; hosted Auth redirects are not configured |
+| [Seller portal](./seller-portal.html) | Four-language seller interface (Indonesian, English, Korean, Japanese), initial Supabase Auth signup/login/logout, authenticated `create_my_store` RPC, and read-only store/product/order count queries | Translations are initial drafts without native-speaker review; runtime flow is not yet independently tested; product CRUD and order actions are not implemented; hosted Auth redirects are not configured |
+| [Seller portal localization](./docs/SELLER-PORTAL-LOCALIZATION.md) | Four-language seller UI behavior, scope and QA requirements | Static localization checks only; browser and native-speaker QA remain |
 | [ShopPage prototype](./shoppage.html) | Product-page builder concept | Browser-only; no account or cloud save |
 | [Storefront demo](./storefront-demo.html) | Sample shop, cart and buyer details | Demo only; WhatsApp handoff, no server-side orders or payments |
 | [Seller Studio demo](./seller-dashboard-demo.html) | Store settings and product management | Browser local storage only; no shared database |
@@ -21,12 +22,13 @@ NEXORA is being developed as a multilingual commerce platform for independent se
 | [Store onboarding validation](./docs/STORE-ONBOARDING-VALIDATION.md) | Server-side 500-character store-description limit and onboarding test plan | Migration 004 is committed but still must be applied and tested in Supabase |
 | [Technical roadmap](./docs/TECHNICAL-ROADMAP.md) | Architecture and milestones | Work in progress |
 | [Public competitive scan](./docs/COMPETITIVE-SCAN-2026-11-14.md) | Public GitHub research on jastip and multi-vendor alternatives | Technical/product scan only; no customer or market-size validation |
-| [Cloudflare Pages deployment](./docs/CLOUDFLARE-PAGES-DEPLOYMENT.md) | Step-by-step no-cost static deployment runbook | Prepared; deployment still requires owner Cloudflare authorization and a real Pages URL |\n| [Launch readiness](./docs/LAUNCH-READINESS.md) | Production release gates | Checklist; not yet passed |
+| [Cloudflare Pages deployment](./docs/CLOUDFLARE-PAGES-DEPLOYMENT.md) | Step-by-step no-cost static deployment runbook | Prepared; deployment still requires owner Cloudflare authorization and a real Pages URL |
+| [Launch readiness](./docs/LAUNCH-READINESS.md) | Production release gates | Checklist; not yet passed |
 
 ## Try the prototypes
 
 1. Open the repository root `index.html` to be redirected to [marketplace.html](./marketplace.html), the responsive NEXORA marketplace homepage demo. The former ShopPage builder is preserved at [shoppage.html](./shoppage.html).
-2. Open [seller-portal.html](./seller-portal.html) to inspect the account and seller interface. Initial Supabase Auth, store creation and read-only dashboard counts are wired, but do not use real credentials until the hosted URL and Auth redirects have been configured and tested. You can also download the project files or clone the repository.
+2. Open [seller-portal.html](./seller-portal.html) to inspect the four-language account and seller interface. Initial Supabase Auth, store creation and read-only dashboard counts are wired, but do not use real credentials until the hosted URL and Auth redirects have been configured and tested. The translations have not yet received native-speaker review. You can also download the project files or clone the repository.
 3. Open `seller-dashboard-demo.html` in a modern browser to add sample products.
 4. Open `storefront-demo.html` separately to explore the buyer experience.
 5. These are independent browser demos. They do not sync automatically. Do not enter real customer or payment data.
