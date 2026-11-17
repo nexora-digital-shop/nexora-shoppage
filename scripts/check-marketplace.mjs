@@ -44,6 +44,35 @@ if (sellerTranslationPairs < 250) {
   errors.push("seller-portal-i18n.js: translation coverage is unexpectedly low (" + sellerTranslationPairs + " entries)");
 }
 
+try {
+  const localizationSandbox = {
+    window: {},
+    document: {
+      readyState: "complete",
+      documentElement: {},
+      body: {},
+      title: "",
+      getElementById: () => null,
+      createTreeWalker: () => ({ nextNode: () => false }),
+      querySelectorAll: () => []
+    },
+    NodeFilter: { SHOW_TEXT: 4 },
+    localStorage: { getItem: () => null, setItem: () => {} },
+    navigator: { language: "id" }
+  };
+  new vm.Script(sellerLocalization, { filename: "seller-portal-i18n.js" }).runInNewContext(localizationSandbox);
+  const i18n = localizationSandbox.window.NEXORA_I18N;
+  const expectedLogin = { en: "Log in", ko: "로그인", ja: "ログイン" };
+  for (const [locale, expected] of Object.entries(expectedLogin)) {
+    i18n.applyLocale(locale);
+    if (i18n.translate("Masuk") !== expected) {
+      errors.push("seller-portal-i18n.js: basic " + locale + " translation did not match");
+    }
+  }
+} catch (error) {
+  errors.push("seller-portal-i18n.js: locale runtime smoke test failed: " + error.message);
+}
+
 const rootEntry = readFileSync(resolve(root, "index.html"), "utf8");
 if (!/marketplace\.html/.test(rootEntry) || !/location\.replace|http-equiv=["']refresh/i.test(rootEntry)) {
   errors.push("index.html: root entry must redirect visitors to marketplace.html");
