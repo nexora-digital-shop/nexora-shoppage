@@ -1,16 +1,17 @@
 # NEXORA account and seller onboarding
 
-Last updated: 2026-11-15
+Last updated: 2026-11-17
 
 ## Current implementation status
 
-The repository contains the first Supabase-connected seller portal at [`seller-portal.html`](../seller-portal.html):
+The repository contains the first Supabase-connected, four-language seller portal at [`seller-portal.html`](../seller-portal.html). The interface has Indonesian, English, Korean and Japanese draft translations through [`seller-portal-i18n.js`](../seller-portal-i18n.js). Browser-language detection and a manually selectable, browser-persisted preference are implemented:
 
 - Email/password signup, login, session restoration and logout are wired to Supabase Auth.
 - Authenticated store creation calls `public.create_my_store` through the Supabase RPC.
 - The database function derives ownership from `auth.uid()` and creates a `draft` store.
 - After store creation, the portal queries the signed-in user's store and reads product/order counts. This dashboard is read-only; product CRUD and order management are not implemented.
 - The portal uses the project's publishable key, not a service-role key.
+- Seller portal language selection is independent of the marketplace selector. The translations are initial drafts, not native-speaker-reviewed copy; see [Seller portal localization](./SELLER-PORTAL-LOCALIZATION.md).
 - These are repository-verified source-code facts. Live signup, email confirmation, database writes, RLS behavior and dashboard reads have not been independently tested.
 
 The owner previously reported migrations 001–003 were applied successfully. Migration 004 is committed but remains pending application and verification. The assistant has no direct connection to the owner's Supabase project.
