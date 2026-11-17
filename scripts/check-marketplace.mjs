@@ -39,7 +39,7 @@ for (const locale of requiredLocales) {
     errors.push("seller-portal-i18n.js: missing locale dictionary " + locale);
   }
 }
-const sellerTranslationPairs = [...sellerLocalization.matchAll(/"[^"]+":\\s*"/g)].length;
+const sellerTranslationPairs = [...sellerLocalization.matchAll(/"[^"]+":\s*"/g)].length;
 if (sellerTranslationPairs < 250) {
   errors.push("seller-portal-i18n.js: translation coverage is unexpectedly low (" + sellerTranslationPairs + " entries)");
 }
