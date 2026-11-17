@@ -7,6 +7,7 @@
     id: {},
     en: {
       "NEXORA Seller Portal": "NEXORA Seller Portal",
+      "Akun": "Account",
       "← Kembali ke marketplace": "← Back to marketplace",
       "Kelola tokomu. Jangkau lebih luas.": "Manage your store. Reach more customers.",
       "Satu portal untuk penjual online dan jastiper. Mulai dari pendaftaran toko, katalog, sampai pengelolaan pesanan.": "One portal for online sellers and personal shoppers. Start with store registration, catalog setup, and order management.",
@@ -73,6 +74,7 @@
     },
     ko: {
       "NEXORA Seller Portal": "NEXORA 판매자 포털",
+      "Akun": "계정",
       "← Kembali ke marketplace": "← 마켓플레이스로 돌아가기",
       "Kelola tokomu. Jangkau lebih luas.": "스토어를 관리하고 더 많은 고객에게 다가가세요.",
       "Satu portal untuk penjual online dan jastiper. Mulai dari pendaftaran toko, katalog, sampai pengelolaan pesanan.": "온라인 판매자와 구매대행자를 위한 포털입니다. 스토어 등록, 상품 카탈로그, 주문 관리부터 시작하세요.",
@@ -139,6 +141,7 @@
     },
     ja: {
       "NEXORA Seller Portal": "NEXORA 出店者ポータル",
+      "Akun": "アカウント",
       "← Kembali ke marketplace": "← マーケットプレイスに戻る",
       "Kelola tokomu. Jangkau lebih luas.": "ショップを管理して、より多くのお客様へ。",
       "Satu portal untuk penjual online dan jastiper. Mulai dari pendaftaran toko, katalog, sampai pengelolaan pesanan.": "オンライン販売者と買い物代行者のためのポータルです。ショップ登録、商品カタログ、注文管理から始めましょう。",
@@ -343,6 +346,17 @@
     if (currentLocale === "id" || typeof value !== "string") return value;
     const exact = allMessages[currentLocale]?.[value] || dictionaries[currentLocale]?.[value];
     if (exact) return exact;
+    const successPrefix = "Berhasil! Toko dibuat dengan ID ";
+    const successSuffix = " dan status awal draft.";
+    if (value.startsWith(successPrefix) && value.endsWith(successSuffix)) {
+      const storeId = value.slice(successPrefix.length, -successSuffix.length);
+      const suffixes = {
+        en: " and its initial status is draft.",
+        ko: "이며 초기 상태는 임시 저장입니다.",
+        ja: "で、初期状態は下書きです。"
+      };
+      return (messagePrefixes[currentLocale]?.[successPrefix] || successPrefix) + storeId + suffixes[currentLocale];
+    }
     const prefixes = messagePrefixes[currentLocale] || {};
     for (const [prefix, translatedPrefix] of Object.entries(prefixes)) {
       if (value.startsWith(prefix)) return translatedPrefix + value.slice(prefix.length);
@@ -392,6 +406,12 @@
       if (!element.dataset.nexoraOriginalPlaceholder) element.dataset.nexoraOriginalPlaceholder = element.placeholder;
       const original = element.dataset.nexoraOriginalPlaceholder;
       element.placeholder = placeholderTranslations[currentLocale]?.[original] || original;
+    });
+
+    document.querySelectorAll("[aria-label]").forEach(element => {
+      if (element === select) return;
+      if (!element.dataset.nexoraOriginalAriaLabel) element.dataset.nexoraOriginalAriaLabel = element.getAttribute("aria-label") || "";
+      element.setAttribute("aria-label", translate(element.dataset.nexoraOriginalAriaLabel));
     });
 
     if (select) select.value = currentLocale;
