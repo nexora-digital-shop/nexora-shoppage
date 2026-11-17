@@ -8,6 +8,7 @@ on:
       - "index.html"
       - "shoppage.html"
       - "seller-portal.html"
+      - "seller-portal-i18n.js"
       - "scripts/check-marketplace.mjs"
       - ".github/workflows/validate-marketplace.yml"
   pull_request:
