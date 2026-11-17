@@ -38,9 +38,10 @@ The GitHub Actions static validation checks:
 2. Presence of the language selector and localization script in the seller portal.
 3. Presence of all four locale dictionaries.
 4. A minimum translation-entry count to catch accidental truncation.
-5. Existing marketplace dictionary and seller portal inline-script checks.
+5. A Node VM smoke test that switches the translation helper to English, Korean and Japanese and checks the login label.
+6. Existing marketplace dictionary and seller portal inline-script checks.
 
-These are static checks, not a browser rendering or linguistic-quality test.
+These are source/smoke checks, not a real-browser rendering, responsive-device or linguistic-quality test.
 
 ## Manual QA still required
 
