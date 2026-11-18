@@ -18,6 +18,7 @@ on:
       - "index.html"
       - "shoppage.html"
       - "seller-portal.html"
+      - "seller-portal-i18n.js"
       - "scripts/check-marketplace.mjs"
       - "supabase/migrations/**"
       - ".github/workflows/validate-marketplace.yml"
