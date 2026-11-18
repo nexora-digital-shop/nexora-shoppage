@@ -173,7 +173,7 @@ if (migrationSql.schema) {
     errors.push("initial migration: public product reads must require published products in active stores");
   }
   for (const policy of ["seller creates own products", "seller updates own products", "seller deletes own products"]) {
-    const escaped = policy.replace(/[.*+?^${}()|[\]\\]/g, "\\if (errors.length) {");
+    const escaped = policy; // Policy names contain no regular-expression metacharacters.
     const match = schema.match(new RegExp('create policy "' + escaped + '" on public\\.products[\\s\\S]*?(?=create policy|-- quote writes|-- order writes|-- order-item writes|-- event writes|commit;)', "i"));
     if (!match || !/owner_user_id\s*=\s*auth\.uid\(\)/.test(match[0])) {
       errors.push("initial migration: " + policy + " must scope writes to the authenticated store owner");
