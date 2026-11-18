@@ -10,6 +10,7 @@ on:
       - "seller-portal.html"
       - "seller-portal-i18n.js"
       - "scripts/check-marketplace.mjs"
+      - "supabase/migrations/**"
       - ".github/workflows/validate-marketplace.yml"
   pull_request:
     paths:
@@ -18,6 +19,7 @@ on:
       - "shoppage.html"
       - "seller-portal.html"
       - "scripts/check-marketplace.mjs"
+      - "supabase/migrations/**"
       - ".github/workflows/validate-marketplace.yml"
 
   workflow_dispatch:
