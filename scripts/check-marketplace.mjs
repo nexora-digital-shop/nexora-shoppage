@@ -144,6 +144,79 @@ for (const locale of requiredLocales) {
   if (!languageOptions.includes(locale)) errors.push("Language selector missing option: " + locale);
 }
 
+
+// Database migration guardrails: these are source checks, not proof of live Supabase state.
+const migrationFiles = {
+  schema: "supabase/migrations/202611100001_initial_marketplace.sql",
+  hardening: "supabase/migrations/202611100003_store_write_hardening.sql",
+  onboarding: "supabase/migrations/202611120004_store_onboarding_validation.sql"
+};
+const migrationSql = {};
+for (const [name, path] of Object.entries(migrationFiles)) {
+  try {
+    migrationSql[name] = readFileSync(resolve(root, path), "utf8").toLowerCase();
+  } catch (error) {
+    errors.push(path + ": required migration missing or unreadable");
+  }
+}
+if (migrationSql.schema) {
+  const schema = migrationSql.schema;
+  for (const table of ["profiles", "stores", "products", "jastip_quotes", "orders", "order_items", "order_events"]) {
+    if (!schema.includes("alter table public." + table + " enable row level security")) {
+      errors.push("initial migration: RLS is not explicitly enabled for " + table);
+    }
+  }
+  if (!/create policy "public reads active stores" on public\.stores\s+for select to anon, authenticated using \(status = 'active'\)/.test(schema)) {
+    errors.push("initial migration: public store reads must be limited to active stores");
+  }
+  if (!/create policy "public reads published products in active stores" on public\.products[\s\S]*?status = 'published'[\s\S]*?s\.status = 'active'/.test(schema)) {
+    errors.push("initial migration: public product reads must require published products in active stores");
+  }
+  for (const policy of ["seller creates own products", "seller updates own products", "seller deletes own products"]) {
+    const escaped = policy.replace(/[.*+?^${}()|[\]\\]/g, "\\if (errors.length) {");
+    const match = schema.match(new RegExp('create policy "' + escaped + '" on public\\.products[\\s\\S]*?(?=create policy|-- quote writes|-- order writes|-- order-item writes|-- event writes|commit;)', "i"));
+    if (!match || !/owner_user_id\s*=\s*auth\.uid\(\)/.test(match[0])) {
+      errors.push("initial migration: " + policy + " must scope writes to the authenticated store owner");
+    }
+  }
+  const writeSensitiveTables = ["jastip_quotes", "orders", "order_items", "order_events"];
+  const policies = [...schema.matchAll(/create policy "([^"]+)" on public\.(\w+)\s+for\s+(select|insert|update|delete)/g)];
+  for (const table of writeSensitiveTables) {
+    if (policies.some(item => item[2] === table && item[3] !== "select")) {
+      errors.push("initial migration: client write policy found on server-controlled table " + table);
+    }
+  }
+}
+if (migrationSql.hardening) {
+  const hardening = migrationSql.hardening;
+  if (!hardening.includes('drop policy if exists "owner creates own store" on public.stores') ||
+      !hardening.includes('drop policy if exists "owner updates own store" on public.stores') ||
+      !/revoke insert, update on table public\.stores from anon, authenticated/.test(hardening)) {
+    errors.push("migration 003: direct client store insert/update must remain revoked");
+  }
+  if (!hardening.includes('drop policy if exists "profile owner inserts own profile" on public.profiles') ||
+      !/revoke insert on table public\.profiles from anon, authenticated/.test(hardening)) {
+    errors.push("migration 003: direct client profile insertion must remain revoked");
+  }
+}
+if (migrationSql.onboarding) {
+  const onboarding = migrationSql.onboarding;
+  if (!onboarding.includes("auth.uid()") ||
+      !onboarding.includes("if v_user_id is null") ||
+      !onboarding.includes("char_length(v_description) > 500") ||
+      !onboarding.includes("'draft'") ||
+      !/revoke all on function public\.create_my_store\(text,text,text,text,text\) from public, anon/.test(onboarding) ||
+      !/grant execute on function public\.create_my_store\(text,text,text,text,text\) to authenticated/.test(onboarding)) {
+    errors.push("migration 004: authenticated owner, 500-character limit, draft status and RPC grants must be enforced");
+  }
+}
+if (/service_role|sb_secret_/i.test(sellerPortal)) {
+  errors.push("seller-portal.html: privileged Supabase secret detected in browser code");
+}
+if (!/sb_publishable_/.test(sellerPortal)) {
+  errors.push("seller-portal.html: expected a Supabase publishable key for browser access");
+}
+
 if (errors.length) {
   console.error("NEXORA static checks failed:");
   for (const error of errors) console.error(" - " + error);
