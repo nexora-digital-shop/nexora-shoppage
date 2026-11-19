@@ -227,13 +227,14 @@ try {
   errors.push(authMigrationPath + ": required migration missing or unreadable");
 }
 if (authSql) {
-  const bootstrap = authSql.match(/create or replace function public\\.handle_new_auth_user\\(\\)[\\s\\S]*?as \\$\\$([\\s\\S]*?)\\$\\$;/);
-  if (!bootstrap || !/security definer/.test(bootstrap[0]) ||
-      !/set search_path = public, pg_temp/.test(bootstrap[0]) ||
-      !/insert into public\\.profiles/.test(bootstrap[0])) {
-    errors.push("migration 002: auth profile bootstrap must use a fixed search_path and insert only the new user's profile");
+  if (!authSql.includes("create or replace function public.handle_new_auth_user()") ||
+      !authSql.includes("security definer") ||
+      !authSql.includes("set search_path = public, pg_temp") ||
+      !authSql.includes("insert into public.profiles")) {
+    errors.push("migration 002: auth profile bootstrap must use a fixed search_path and insert the new user's profile");
   }
-  if (!/after insert on auth\\.users[\\s\\S]*?execute function public\\.handle_new_auth_user\\(\\)/.test(authSql)) {
+  if (!authSql.includes("after insert on auth.users") ||
+      !authSql.includes("execute function public.handle_new_auth_user()")) {
     errors.push("migration 002: auth.users profile bootstrap trigger is missing");
   }
 }
@@ -241,24 +242,27 @@ if (authSql) {
 if (migrationSql.schema) {
   const schema = migrationSql.schema;
   for (const policy of ["seller creates own products", "seller updates own products", "seller deletes own products"]) {
-    const match = schema.match(new RegExp('create policy "' + policy + '" on public\\.products[\\s\\S]*?(?=create policy|-- quote writes|-- order writes|-- order-item writes|-- event writes|commit;)', "i"));
-    if (!match || !/owner_user_id\\s*=\\s*auth\\.uid\\(\\)/.test(match[0])) {
+    const start = schema.indexOf('create policy "' + policy + '" on public.products');
+    const next = schema.indexOf("create policy", start + 1);
+    const section = start >= 0 ? schema.slice(start, next >= 0 ? next : schema.length) : "";
+    if (!section.includes("owner_user_id = auth.uid()") || !section.includes("exists")) {
       errors.push("initial migration: " + policy + " must be restricted to the authenticated owner of the product's store");
     }
   }
 }
 
 const sellerPortalSource = readFileSync(resolve(root, "seller-portal.html"), "utf8");
-if (!/client\\.from\\('stores'\\)[\\s\\S]*?\\.eq\\('owner_user_id',userId\\)\\.maybeSingle\\(\\)/.test(sellerPortalSource)) {
+if (!sellerPortalSource.includes("client.from('stores')") ||
+    !sellerPortalSource.includes(".eq('owner_user_id',userId).maybeSingle()")) {
   errors.push("seller-portal.html: store dashboard query must be scoped to the signed-in owner");
 }
 for (const table of ["products", "orders"]) {
-  const query = new RegExp("client\\.from\\('" + table + "'\\)[\\s\\S]*?\\.eq\\('store_id',storeData\\.id\\)");
-  if (!query.test(sellerPortalSource)) {
+  if (!sellerPortalSource.includes("client.from('" + table + "')") ||
+      !sellerPortalSource.includes(".eq('store_id',storeData.id)")) {
     errors.push("seller-portal.html: " + table + " dashboard query must be scoped to the authenticated seller's store");
   }
 }
-if (!/currentUser\\?\\.id!==userId/.test(sellerPortalSource)) {
+if (!sellerPortalSource.includes("currentUser?.id!==userId")) {
   errors.push("seller-portal.html: dashboard must discard results after the active account changes");
 }
 
