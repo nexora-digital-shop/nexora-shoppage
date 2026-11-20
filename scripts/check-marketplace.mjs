@@ -149,7 +149,8 @@ for (const locale of requiredLocales) {
 const migrationFiles = {
   schema: "supabase/migrations/202611100001_initial_marketplace.sql",
   hardening: "supabase/migrations/202611100003_store_write_hardening.sql",
-  onboarding: "supabase/migrations/202611120004_store_onboarding_validation.sql"
+  onboarding: "supabase/migrations/202611120004_store_onboarding_validation.sql",
+  searchPathHardening: "supabase/migrations/202611200005_secure_definer_search_path.sql"
 };
 const migrationSql = {};
 for (const [name, path] of Object.entries(migrationFiles)) {
@@ -210,6 +211,23 @@ if (migrationSql.onboarding) {
     errors.push("migration 004: authenticated owner, 500-character limit, draft status and RPC grants must be enforced");
   }
 }
+if (migrationSql.searchPathHardening) {
+  const hardening = migrationSql.searchPathHardening;
+  const emptySearchPathCount = (hardening.match(/set search_path = ''/g) || []).length;
+  if (!hardening.includes("create or replace function public.handle_new_auth_user()") ||
+      !hardening.includes("create or replace function public.create_my_store(") ||
+      emptySearchPathCount < 2 ||
+      !hardening.includes("insert into public.profiles") ||
+      !hardening.includes("insert into public.stores") ||
+      !hardening.includes("from public.stores") ||
+      !hardening.includes("auth.uid()") ||
+      !hardening.includes("revoke all on function public.create_my_store(text,text,text,text,text) from public, anon") ||
+      !hardening.includes("grant execute on function public.create_my_store(text,text,text,text,text) to authenticated") ||
+      /set search_path = public|set search_path = pg_temp/i.test(hardening)) {
+    errors.push("migration 005: SECURITY DEFINER functions must use an empty search_path, schema-qualified relations, auth.uid() ownership, and authenticated-only store RPC grants");
+  }
+}
+
 if (/service_role|sb_secret_/i.test(sellerPortal)) {
   errors.push("seller-portal.html: privileged Supabase secret detected in browser code");
 }
@@ -283,4 +301,4 @@ if (errors.length) {
   for (const error of errors) console.error(" - " + error);
   process.exit(1);
 }
-console.log("NEXORA static checks passed: inline JavaScript syntax, root marketplace entry point, preserved ShopPage prototype, four locale dictionaries, visible translation keys, database-backed dashboard assertions, and language selector options.");
+console.log("NEXORA static checks passed: inline JavaScript syntax, root marketplace entry point, preserved ShopPage prototype, four locale dictionaries, visible translation keys, database-backed dashboard assertions, language selector options, migration guardrails, and SECURITY DEFINER search-path hardening.");
