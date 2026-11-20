@@ -1,11 +1,13 @@
 # NEXORA database foundation
 
-Status: Migrations 001–003 are committed to GitHub. The owner reports that all three were executed in a Supabase project and returned success. The owner also reports that the verification query returned `anon_can_insert_store=false`, `user_can_insert_store=false`, `user_can_update_store=false`, `user_can_insert_profile=false`, `user_can_create_store=true`, and `remaining_policies=13`. These are user-reported results; this assistant has no direct Supabase connection to independently inspect the project.
+Status: Migrations 001–005 are committed to GitHub. The owner reports that migrations 001–003 were executed in a Supabase project and returned success. Migrations 004 and 005 remain pending application unless independently confirmed in the Supabase migration history. The owner also reports that the verification query returned `anon_can_insert_store=false`, `user_can_insert_store=false`, `user_can_update_store=false`, `user_can_insert_profile=false`, `user_can_create_store=true`, and `remaining_policies=13`. These are user-reported results; this assistant has no direct Supabase connection to independently inspect the project.
 
 Migrations (apply in order):
 1. `supabase/migrations/202611100001_initial_marketplace.sql` — marketplace schema and RLS.
 2. `supabase/migrations/202611100002_auth_and_store_onboarding.sql` — auth profile trigger and secure store creation function.
 3. `supabase/migrations/202611100003_store_write_hardening.sql` — removes direct client store writes so sellers cannot self-activate.
+4. `supabase/migrations/202611120004_store_onboarding_validation.sql` — enforces the 500-character store-description limit and authenticated-only RPC grants.
+5. `supabase/migrations/202611200005_secure_definer_search_path.sql` — pins both SECURITY DEFINER functions to an empty search_path and schema-qualifies relations. See [SECURITY DEFINER search-path hardening](./SECURITY-DEFINER-SEARCH-PATH-2026-11-20.md).
 
 See also [Account onboarding](./ACCOUNT-ONBOARDING.md) and [Store access hardening](./STORE-ACCESS-HARDENING.md).
 
