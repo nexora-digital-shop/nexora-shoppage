@@ -12,6 +12,7 @@ Migration `202611120004_store_onboarding_validation.sql` replaces the RPC with t
 
 - Migration 001–003: the owner previously reported successful application; this has not been independently verified through a Supabase connection.
 - Migration 004: committed to GitHub on 2026-11-12; **not yet applied** to Supabase.
+- Migration 005: committed to GitHub on 2026-11-20; hardens SECURITY DEFINER search_path settings and must be applied after migration 004. It is **not yet applied** to Supabase.
 - No live signup, email confirmation, or store-creation transaction has been run by this repository review.
 - Do not claim this protection is active in the live database until migration 004 is applied and tested.
 
@@ -25,7 +26,7 @@ Migration `202611120004_store_onboarding_validation.sql` replaces the RPC with t
 6. Run it once. It uses a transaction; if it fails, stop and inspect the error rather than making partial manual edits.
 7. Verify the function definition and grants in Supabase before testing the portal.
 
-Migration source: [202611120004_store_onboarding_validation.sql](../supabase/migrations/202611120004_store_onboarding_validation.sql).
+Migration sources: [202611120004_store_onboarding_validation.sql](../supabase/migrations/202611120004_store_onboarding_validation.sql) and [202611200005_secure_definer_search_path.sql](../supabase/migrations/202611200005_secure_definer_search_path.sql).
 
 ## Required tests after applying
 
@@ -39,6 +40,7 @@ Use a dedicated test account and no real customer information.
 - The created row's `owner_user_id` must match the authenticated user's ID.
 - Direct client insert/update of `stores` and direct client insert of `profiles` must remain denied.
 - A second test account must not read or modify the first account's private store data.
+- After migration 005, both SECURITY DEFINER functions must report an empty search_path in pg_proc.proconfig; the store-creation RPC must remain unavailable to anon and executable by authenticated users. See [search-path verification](./SECURITY-DEFINER-SEARCH-PATH-2026-11-20.md).
 
 ## Rollback and safety
 
