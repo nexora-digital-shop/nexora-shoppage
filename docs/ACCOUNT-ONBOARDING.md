@@ -14,7 +14,7 @@ The repository contains the first Supabase-connected, four-language seller porta
 - Seller portal language selection is independent of the marketplace selector. The translations are initial drafts, not native-speaker-reviewed copy; see [Seller portal localization](./SELLER-PORTAL-LOCALIZATION.md).
 - These are repository-verified source-code facts. Live signup, email confirmation, database writes, RLS behavior and dashboard reads have not been independently tested.
 
-The owner previously reported migrations 001–003 were applied successfully. Migration 004 is committed but remains pending application and verification. The assistant has no direct connection to the owner's Supabase project.
+The owner previously reported migrations 001–003 were applied successfully. Migrations 004 and 005 are committed but remain pending application and verification. Migration 005 hardens both SECURITY DEFINER functions with an empty search_path; see [SECURITY DEFINER search-path hardening](./SECURITY-DEFINER-SEARCH-PATH-2026-11-20.md). The assistant has no direct connection to the owner's Supabase project.
 
 ## Account onboarding flow
 
@@ -30,7 +30,7 @@ The owner previously reported migrations 001–003 were applied successfully. Mi
 
 - Store ownership must always be derived from the authenticated session, never from a user-supplied owner ID.
 - The store-creation function validates the store name, URL slug, country code and currency code.
-- Migration 004 adds database-side validation limiting the store description to 500 characters and explicitly grants RPC execution to authenticated users only. It is committed but not yet confirmed active in Supabase.
+- Migration 004 adds database-side validation limiting the store description to 500 characters and explicitly grants RPC execution to authenticated users only. Migration 005 sets an empty search_path on both SECURITY DEFINER functions and schema-qualifies their relations. Both are committed but not yet confirmed active in Supabase.
 - One-store-per-account is enforced by the current database design.
 - Direct client insert/update access to stores and direct client profile insertion are intended to remain denied.
 - Sellers must not be able to activate, pause or suspend their own stores.
@@ -45,9 +45,10 @@ The owner reports successful execution of:
 2. `supabase/migrations/202611100002_auth_and_store_onboarding.sql`
 3. `supabase/migrations/202611100003_store_write_hardening.sql`
 
-Migration 004 is pending:
+Migration 004 and the follow-up hardening migration 005 are pending:
 
 - `supabase/migrations/202611120004_store_onboarding_validation.sql`
+- `supabase/migrations/202611200005_secure_definer_search_path.sql` (apply after 004)
 
 Before applying or rerunning anything, inspect Supabase migration history and current schema. Do not rerun migrations 001–003 blindly. See [Store onboarding validation](./STORE-ONBOARDING-VALIDATION.md) and [Store access hardening](./STORE-ACCESS-HARDENING.md).
 
