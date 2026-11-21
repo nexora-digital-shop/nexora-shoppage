@@ -24,6 +24,7 @@ NEXORA is being developed as a multilingual commerce platform for independent se
 | [SECURITY DEFINER search-path hardening](./docs/SECURITY-DEFINER-SEARCH-PATH-2026-11-20.md) | Empty search_path and schema-qualified function references | Migration 005 is committed but not yet applied; source checks are not live database verification |
 | [Technical roadmap](./docs/TECHNICAL-ROADMAP.md) | Architecture and milestones | Work in progress |
 | [Public competitive scan](./docs/COMPETITIVE-SCAN-2026-11-14.md) | Public GitHub research on jastip and multi-vendor alternatives | Technical/product scan only; no customer or market-size validation |
+| [Competitive review update](./docs/COMPETITIVE-REVIEW-2026-11-21.md) | Refreshed public-source comparison of Spree, Mercur, Bagisto, JastipKita, NitipCuy and Titip.in | Public documentation only; no customer validation or independent production audit |
 | [Cloudflare Pages deployment](./docs/CLOUDFLARE-PAGES-DEPLOYMENT.md) | Step-by-step no-cost static deployment runbook | Prepared; deployment still requires owner Cloudflare authorization and a real Pages URL |
 | [Launch readiness](./docs/LAUNCH-READINESS.md) | Production release gates | Checklist; not yet passed |
 
