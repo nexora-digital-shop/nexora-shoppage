@@ -44,6 +44,27 @@ if (sellerTranslationPairs < 250) {
   errors.push("seller-portal-i18n.js: translation coverage is unexpectedly low (" + sellerTranslationPairs + " entries)");
 }
 
+const sellerMarkupForLocalization = sellerPortalMarkup
+  .replace(/<script\\b[\\s\\S]*?<\\/script>/gi, "")
+  .replace(/<style\\b[\\s\\S]*?<\\/style>/gi, "")
+  .replace(/<a\\b[^>]*class=["'][^"']*\\blogo\\b[^"']*["'][^>]*>[\\s\\S]*?<\\/a>/i, "")
+  .replace(/<select\\b[^>]*id=["']languageSelect["'][^>]*>[\\s\\S]*?<\\/select>/i, "")
+  .replace(/<select\\b[^>]*id=["']currency["'][^>]*>[\\s\\S]*?<\\/select>/i, "");
+const sellerLocaleKeys = new Set(
+  [...sellerLocalization.matchAll(/"((?:\\\\.|[^"\\\\])*)"\\s*:/g)].map(item => item[1])
+);
+const sellerIntentionalText = new Set(["—"]);
+const sellerVisibleText = [...sellerMarkupForLocalization.matchAll(/>([^<>]+)</g)]
+  .map(item => item[1].trim())
+  .filter(Boolean);
+for (const locale of requiredLocales.filter(item => item !== "id")) {
+  for (const visibleText of new Set(sellerVisibleText)) {
+    if (!sellerIntentionalText.has(visibleText) && !sellerLocaleKeys.has(visibleText)) {
+      errors.push("seller-portal-i18n.js: " + locale + " is missing a translation for visible seller portal text: " + visibleText);
+    }
+  }
+}
+
 try {
   const localizationSandbox = {
     window: {},
