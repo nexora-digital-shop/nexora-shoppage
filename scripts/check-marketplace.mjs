@@ -45,13 +45,13 @@ if (sellerTranslationPairs < 250) {
 }
 
 const sellerMarkupForLocalization = sellerPortalMarkup
-  .replace(/<script\\b[\\s\\S]*?<\\/script>/gi, "")
-  .replace(/<style\\b[\\s\\S]*?<\\/style>/gi, "")
-  .replace(/<a\\b[^>]*class=["'][^"']*\\blogo\\b[^"']*["'][^>]*>[\\s\\S]*?<\\/a>/i, "")
-  .replace(/<select\\b[^>]*id=["']languageSelect["'][^>]*>[\\s\\S]*?<\\/select>/i, "")
-  .replace(/<select\\b[^>]*id=["']currency["'][^>]*>[\\s\\S]*?<\\/select>/i, "");
+  .replace(/<script\b[\s\S]*?<\/script>/gi, "")
+  .replace(/<style\b[\s\S]*?<\/style>/gi, "")
+  .replace(/<a\b[^>]*class=["'][^"']*\blogo\b[^"']*["'][^>]*>[\s\S]*?<\/a>/i, "")
+  .replace(/<select\b[^>]*id=["']languageSelect["'][^>]*>[\s\S]*?<\/select>/i, "")
+  .replace(/<select\b[^>]*id=["']currency["'][^>]*>[\s\S]*?<\/select>/i, "");
 const sellerLocaleKeys = new Set(
-  [...sellerLocalization.matchAll(/"((?:\\\\.|[^"\\\\])*)"\\s*:/g)].map(item => item[1])
+  [...sellerLocalization.matchAll(/"([^"]+)"\s*:/g)].map(item => item[1])
 );
 const sellerIntentionalText = new Set(["—"]);
 const sellerVisibleText = [...sellerMarkupForLocalization.matchAll(/>([^<>]+)</g)]
