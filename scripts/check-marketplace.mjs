@@ -53,7 +53,7 @@ const sellerMarkupForLocalization = sellerPortalMarkup
 const sellerLocaleKeys = new Set(
   [...sellerLocalization.matchAll(/"([^"]+)"\s*:/g)].map(item => item[1])
 );
-const sellerIntentionalText = new Set(["—"]);
+const sellerIntentionalText = new Set(["—", "📦", "🧾", "🏪", "⚙️"]);
 const sellerVisibleText = [...sellerMarkupForLocalization.matchAll(/>([^<>]+)</g)]
   .map(item => item[1].trim())
   .filter(Boolean);
@@ -88,6 +88,37 @@ try {
     i18n.applyLocale(locale);
     if (i18n.translate("Masuk") !== expected) {
       errors.push("seller-portal-i18n.js: basic " + locale + " translation did not match");
+    }
+  }
+  const expectedSellerCopy = {
+    en: {
+      "Buat satu toko untuk akun yang sedang login. Toko baru otomatis berstatus draft.": "Create one store for the signed-in account. New stores automatically start in draft status.",
+      "Kelola produk": "Manage products",
+      "Pesanan": "Orders",
+      "Profil toko": "Store profile",
+      "Pengaturan": "Settings"
+    },
+    ko: {
+      "Buat satu toko untuk akun yang sedang login. Toko baru otomatis berstatus draft.": "현재 로그인한 계정으로 스토어 하나를 만드세요. 새 스토어는 자동으로 임시 저장 상태가 됩니다.",
+      "Kelola produk": "상품 관리",
+      "Pesanan": "주문",
+      "Profil toko": "스토어 프로필",
+      "Pengaturan": "설정"
+    },
+    ja: {
+      "Buat satu toko untuk akun yang sedang login. Toko baru otomatis berstatus draft.": "現在ログイン中のアカウントでショップを1つ作成します。新しいショップは自動的に下書き状態になります。",
+      "Kelola produk": "商品管理",
+      "Pesanan": "注文",
+      "Profil toko": "ショッププロフィール",
+      "Pengaturan": "設定"
+    }
+  };
+  for (const [locale, translations] of Object.entries(expectedSellerCopy)) {
+    i18n.applyLocale(locale);
+    for (const [source, expected] of Object.entries(translations)) {
+      if (i18n.translate(source) !== expected) {
+        errors.push("seller-portal-i18n.js: " + locale + " translation mismatch for " + source);
+      }
     }
   }
 } catch (error) {
