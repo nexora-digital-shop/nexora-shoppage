@@ -1,6 +1,6 @@
 # NEXORA seller portal localization
 
-Last updated: 2026-11-17
+Last updated: 2026-11-23
 
 ## Implemented
 
@@ -38,8 +38,9 @@ The GitHub Actions static validation checks:
 2. Presence of the language selector and localization script in the seller portal.
 3. Presence of all four locale dictionaries.
 4. A minimum translation-entry count to catch accidental truncation.
-5. A Node VM smoke test that switches the translation helper to English, Korean and Japanese and checks the login label.
-6. Existing marketplace dictionary and seller portal inline-script checks.
+5. Coverage of every visible static seller-portal text node in English, Korean and Japanese, excluding native language names, currency codes and decorative symbols.
+6. Node VM smoke tests for the login label, store-setup explanation and seller dashboard headings in all three translated locales.
+7. Existing marketplace dictionary and seller portal inline-script checks.
 
 These are source/smoke checks, not a real-browser rendering, responsive-device or linguistic-quality test.
 
