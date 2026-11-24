@@ -193,8 +193,13 @@ if (/<strong>0<\/strong>/.test(sellerPortal)) {
 
 // The storefront demo must never route buyer contact/address details to a hard-coded sample number.
 const storefrontDemo = readFileSync(resolve(root, "storefront-demo.html"), "utf8");
-const demoSellerContact = storefrontDemo.match(/const STORE=\\{[\\s\\S]*?sellerWhatsApp:"([^"]*)"/);
-if (!demoSellerContact || demoSellerContact[1] !== "") {
+const sellerContactMarker = 'sellerWhatsApp:"';
+const sellerContactStart = storefrontDemo.indexOf(sellerContactMarker);
+const sellerContactEnd = sellerContactStart < 0 ? -1 : storefrontDemo.indexOf('"', sellerContactStart + sellerContactMarker.length);
+const demoSellerContact = sellerContactStart < 0 || sellerContactEnd < 0
+  ? null
+  : storefrontDemo.slice(sellerContactStart + sellerContactMarker.length, sellerContactEnd);
+if (demoSellerContact !== "") {
   errors.push("storefront-demo.html: seller WhatsApp destination must remain blank until the owner configures a verified number");
 }
 if (!storefrontDemo.includes('$("sendOrder").disabled=!entries.length||!/^[0-9]{9,15}$/.test(STORE.sellerWhatsApp);')) {
