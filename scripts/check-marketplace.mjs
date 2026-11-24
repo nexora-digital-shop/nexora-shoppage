@@ -191,6 +191,25 @@ if (/<strong>0<\/strong>/.test(sellerPortal)) {
   errors.push("seller-portal.html: hard-coded zero dashboard statistic found; use database-backed values.");
 }
 
+// The storefront demo must never route buyer contact/address details to a hard-coded sample number.
+const storefrontDemo = readFileSync(resolve(root, "storefront-demo.html"), "utf8");
+const demoSellerContact = storefrontDemo.match(/const STORE=\\{[\\s\\S]*?sellerWhatsApp:"([^"]*)"/);
+if (!demoSellerContact || demoSellerContact[1] !== "") {
+  errors.push("storefront-demo.html: seller WhatsApp destination must remain blank until the owner configures a verified number");
+}
+if (!storefrontDemo.includes('$("sendOrder").disabled=!entries.length||!/^[0-9]{9,15}$/.test(STORE.sellerWhatsApp);')) {
+  errors.push("storefront-demo.html: order handoff must remain disabled until a valid seller WhatsApp number is configured");
+}
+const sendOrderHandlerStart = storefrontDemo.indexOf('$("sendOrder").onclick=');
+const sellerContactGuard = storefrontDemo.indexOf('if(!/^[0-9]{9,15}$/.test(STORE.sellerWhatsApp))', sendOrderHandlerStart);
+const buyerDetailsRead = storefrontDemo.indexOf('const name=$("customer").value.trim()', sendOrderHandlerStart);
+if (sendOrderHandlerStart < 0 || sellerContactGuard < 0 || buyerDetailsRead < 0 || sellerContactGuard > buyerDetailsRead) {
+  errors.push("storefront-demo.html: seller contact must be validated before reading buyer contact/address fields");
+}
+if (!storefrontDemo.includes("nomor WhatsApp penjual belum dikonfigurasi")) {
+  errors.push("storefront-demo.html: demo must clearly disclose that seller WhatsApp is not configured");
+}
+
 const languageOptions = [...marketplace.matchAll(/<option value="(id|en|ko|ja)">/g)].map(x => x[1]);
 for (const locale of requiredLocales) {
   if (!languageOptions.includes(locale)) errors.push("Language selector missing option: " + locale);
