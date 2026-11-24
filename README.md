@@ -11,7 +11,7 @@ NEXORA is being developed as a multilingual commerce platform for independent se
 | [Seller portal](./seller-portal.html) | Four-language seller interface (Indonesian, English, Korean, Japanese), initial Supabase Auth signup/login/logout, authenticated `create_my_store` RPC, and read-only store/product/order count queries | Translations are initial drafts without native-speaker review; runtime flow is not yet independently tested; product CRUD and order actions are not implemented; hosted Auth redirects are not configured |
 | [Seller portal localization](./docs/SELLER-PORTAL-LOCALIZATION.md) | Four-language seller UI behavior, scope and QA requirements | Static localization checks only; browser and native-speaker QA remain |
 | [ShopPage prototype](./shoppage.html) | Product-page builder concept | Browser-only; no account or cloud save |
-| [Storefront demo](./storefront-demo.html) | Sample shop, cart and buyer details | Demo only; WhatsApp handoff, no server-side orders or payments |
+| [Storefront demo](./storefront-demo.html) | Sample shop, cart and buyer details | Demo only; WhatsApp handoff stays disabled until the owner configures a verified seller number; no server-side orders or payments |
 | [Seller Studio demo](./seller-dashboard-demo.html) | Store settings and product management | Browser local storage only; no shared database |
 | [Free plan policy](./docs/FREE-PLAN-POLICY.md) | Agreed free-tier limits | Policy is documented, not yet enforced by a server |
 | [Order & checkout MVP](./docs/ORDER-CHECKOUT-MVP.md) | Order and payment requirements | Specification, not a live checkout |
