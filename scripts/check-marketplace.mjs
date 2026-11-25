@@ -5,7 +5,7 @@ import vm from "node:vm";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const requiredLocales = ["id", "en", "ko", "ja"];
-const files = ["marketplace.html", "seller-portal.html"];
+const files = ["marketplace.html", "seller-portal.html", "storefront-demo.html"];
 const errors = [];
 
 for (const file of files) {
@@ -364,9 +364,10 @@ const workflowPath = resolve(root, ".github/workflows/validate-marketplace.yml")
 try {
   const workflow = readFileSync(workflowPath, "utf8");
   if (!workflow.includes('"supabase/migrations/**"') ||
+      !workflow.includes('"storefront-demo.html"') ||
       !workflow.includes("pull_request:") ||
       !workflow.includes("push:")) {
-    errors.push("workflow: database migration changes must trigger validation on push and pull requests");
+    errors.push("workflow: storefront demo and database migration changes must trigger validation on push and pull requests");
   }
 } catch {
   errors.push(".github/workflows/validate-marketplace.yml: workflow file is missing or unreadable");
@@ -377,4 +378,4 @@ if (errors.length) {
   for (const error of errors) console.error(" - " + error);
   process.exit(1);
 }
-console.log("NEXORA static checks passed: inline JavaScript syntax, root marketplace entry point, preserved ShopPage prototype, four locale dictionaries, visible translation keys, database-backed dashboard assertions, language selector options, migration guardrails, and SECURITY DEFINER search-path hardening.");
+console.log("NEXORA static checks passed: marketplace, seller portal and storefront inline JavaScript syntax; storefront CI trigger and safe WhatsApp handoff; root entry point; four locale dictionaries; visible translation keys; database-backed dashboard assertions; language selector options; migration guardrails; and SECURITY DEFINER search-path hardening.");
