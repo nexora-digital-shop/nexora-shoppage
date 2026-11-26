@@ -27,6 +27,7 @@ NEXORA is being developed as a multilingual commerce platform for independent se
 | [Competitive review update](./docs/COMPETITIVE-REVIEW-2026-11-21.md) | Refreshed public-source comparison of Spree, Mercur, Bagisto, JastipKita, NitipCuy and Titip.in | Public documentation only; no customer validation or independent production audit |
 | [Cloudflare Pages deployment](./docs/CLOUDFLARE-PAGES-DEPLOYMENT.md) | Step-by-step no-cost static deployment runbook | Prepared; deployment still requires owner Cloudflare authorization and a real Pages URL |
 | [Launch readiness](./docs/LAUNCH-READINESS.md) | Production release gates | Checklist; not yet passed |
+| [Repository verification — 2026-11-26](./docs/REPOSITORY-VERIFICATION-2026-11-26.md) | Verified GitHub Actions run 31, checked workflow triggers and documented remaining release gates | Static CI only; no live deployment, Supabase runtime, product CRUD, orders or payments verified |
 
 ## Try the prototypes
 
