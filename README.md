@@ -28,6 +28,7 @@ NEXORA is being developed as a multilingual commerce platform for independent se
 | [Cloudflare Pages deployment](./docs/CLOUDFLARE-PAGES-DEPLOYMENT.md) | Step-by-step no-cost static deployment runbook | Prepared; deployment still requires owner Cloudflare authorization and a real Pages URL |
 | [Launch readiness](./docs/LAUNCH-READINESS.md) | Production release gates | Checklist; not yet passed |
 | [Repository verification — 2026-11-26](./docs/REPOSITORY-VERIFICATION-2026-11-26.md) | Verified GitHub Actions run 31, checked workflow triggers and documented remaining release gates | Static CI only; no live deployment, Supabase runtime, product CRUD, orders or payments verified |
+| [Browser smoke tests — 2026-11-27](./docs/BROWSER-SMOKE-TESTS-2026-11-27.md) | Verified Chromium checks at a 390px mobile viewport for marketplace search/filter/language, seller Korean/Japanese switching, and safe storefront cart behavior | Browser simulation only; Supabase mocked; no physical iPhone Safari, live database, orders or payments verified |
 
 ## Try the prototypes
 
