@@ -1,6 +1,6 @@
 # NEXORA frontend authentication integration checkpoint
 
-Last updated: 2026-11-14
+Last updated: 2026-11-27
 
 ## Repository-verified implementation
 
@@ -49,7 +49,7 @@ Do not share passwords, access tokens, service-role keys or payment credentials.
 - The seller dashboard reads the user's store and product/order counts, but is read-only: product CRUD, order details/actions, and profile editing are not implemented.
 - Product creation/editing, image storage, public storefront publication, buyer cart, server-side order creation and payment verification are not implemented as live workflows.
 - Password reset, account deletion, abuse/rate controls and support operations are not complete.
-- The seller portal is currently Indonesian-only; the four-language selector is implemented on the marketplace homepage, not yet throughout the seller portal.
+- The seller portal now has an in-page language selector and draft Indonesian, English, Korean and Japanese dictionaries in `seller-portal-i18n.js`. Static checks cover visible markup keys and selected runtime translations; a Chromium browser smoke test also switched the seller heading to Korean and Japanese. Native-speaker review, broader copy coverage review and real-device/iOS Safari localization QA remain outstanding.
 - The seller portal currently depends on the Supabase JavaScript v2 CDN from jsDelivr; the page now shows an error if the library is unavailable, but CDN availability has not been tested across target networks.
 - Visual and end-to-end tests on iPhone/iOS Safari, Android Chrome and desktop are outstanding.
 
