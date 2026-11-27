@@ -34,7 +34,9 @@ permissions:
 
 jobs:
   static-validation:
-    runs-on: ubuntu-latest
+    # Pin the runner to Ubuntu 24.04 because the pinned Playwright version
+    # does not yet provide browser dependencies for the ubuntu-latest image.
+    runs-on: ubuntu-24.04
     steps:
       - name: Check out source
         uses: actions/checkout@v4
