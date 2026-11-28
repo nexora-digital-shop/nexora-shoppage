@@ -13,10 +13,10 @@ NEXORA is being developed as a multilingual commerce platform for independent se
 | [ShopPage prototype](./shoppage.html) | Product-page builder concept | Browser-only; no account or cloud save |
 | [Storefront demo](./storefront-demo.html) | Sample shop, cart and buyer details | Demo only; WhatsApp handoff stays disabled until the owner configures a verified seller number; no server-side orders or payments |
 | [Seller Studio demo](./seller-dashboard-demo.html) | Store settings and product management | Browser local storage only; no shared database |
-| [Free plan policy](./docs/FREE-PLAN-POLICY.md) | Agreed free-tier limits | Policy is documented, not yet enforced by a server |
+| [Free plan policy](./docs/FREE-PLAN-POLICY.md) | Agreed free-tier limits | Migration 006 contains server-side quota RPCs but is not applied; ShopPage preview/save UI is not connected |
 | [Order & checkout MVP](./docs/ORDER-CHECKOUT-MVP.md) | Order and payment requirements | Specification, not a live checkout |
 | [Jastip MVP](./docs/JASTIP-MVP.md) | Jastiper, preorder and quote workflows | Requirements, not yet implemented |
-| [Database foundation](./docs/DATABASE-FOUNDATION.md) | Initial PostgreSQL schema and RLS plan | Owner reports migrations 001–003 applied; migrations 004–005 remain pending until checked/applied; live database behavior is not independently inspected |
+| [Database foundation](./docs/DATABASE-FOUNDATION.md) | Initial PostgreSQL schema and RLS plan | Owner reports migrations 001–003 applied; migrations 004–006 remain pending until checked/applied; live database behavior is not independently inspected |
 | [Database security source review](./docs/DATABASE-SECURITY-SOURCE-REVIEW-2026-11-18.md) | Source-level review of RLS, seller ownership and server-only order/quote writes | Static review only; live Supabase grants, policies and migrations remain unverified |
 | [Account onboarding](./docs/ACCOUNT-ONBOARDING.md) | Signup/profile/store creation flow | Initial Auth/store RPC and read-only dashboard code are present; live runtime and hosted Auth redirects remain untested |
 | [Store access hardening](./docs/STORE-ACCESS-HARDENING.md) | Prevents client-side store creation and self-activation | Owner reports migration applied and direct-write checks returned expected denials; broader runtime tests remain |
@@ -29,6 +29,7 @@ NEXORA is being developed as a multilingual commerce platform for independent se
 | [Launch readiness](./docs/LAUNCH-READINESS.md) | Production release gates | Checklist; not yet passed |
 | [Repository verification — 2026-11-26](./docs/REPOSITORY-VERIFICATION-2026-11-26.md) | Verified GitHub Actions run 31, checked workflow triggers and documented remaining release gates | Static CI only; no live deployment, Supabase runtime, product CRUD, orders or payments verified |
 | [Browser smoke tests — 2026-11-27](./docs/BROWSER-SMOKE-TESTS-2026-11-27.md) | Verified Chromium checks at a 390px mobile viewport for marketplace search/filter/language, seller Korean/Japanese switching, and safe storefront cart behavior | Browser simulation only; Supabase mocked; no physical iPhone Safari, live database, orders or payments verified |
+| [Free plan enforcement — 2026-11-28](./docs/FREE-PLAN-ENFORCEMENT-2026-11-28.md) | Migration 006 design for one product page and two successful saved edits per account | Source/static checks only; migration not applied and ShopPage UI not connected |
 
 ## Try the prototypes
 
