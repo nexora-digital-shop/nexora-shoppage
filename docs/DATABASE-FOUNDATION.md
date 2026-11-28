@@ -1,6 +1,6 @@
 # NEXORA database foundation
 
-Status: Migrations 001–005 are committed to GitHub. The owner reports that migrations 001–003 were executed in a Supabase project and returned success. Migrations 004 and 005 remain pending application unless independently confirmed in the Supabase migration history. The owner also reports that the verification query returned `anon_can_insert_store=false`, `user_can_insert_store=false`, `user_can_update_store=false`, `user_can_insert_profile=false`, `user_can_create_store=true`, and `remaining_policies=13`. These are user-reported results; this assistant has no direct Supabase connection to independently inspect the project.
+Status: Migrations 001–006 are committed to GitHub. The owner reports that migrations 001–003 were executed in a Supabase project and returned success. Migrations 004–006 remain pending application unless independently confirmed in the Supabase migration history. The owner also reports that the verification query returned `anon_can_insert_store=false`, `user_can_insert_store=false`, `user_can_update_store=false`, `user_can_insert_profile=false`, `user_can_create_store=true`, and `remaining_policies=13`. These are user-reported results; this assistant has no direct Supabase connection to independently inspect the project.
 
 Migrations (apply in order):
 1. `supabase/migrations/202611100001_initial_marketplace.sql` — marketplace schema and RLS.
@@ -8,6 +8,7 @@ Migrations (apply in order):
 3. `supabase/migrations/202611100003_store_write_hardening.sql` — removes direct client store writes so sellers cannot self-activate.
 4. `supabase/migrations/202611120004_store_onboarding_validation.sql` — enforces the 500-character store-description limit and authenticated-only RPC grants.
 5. `supabase/migrations/202611200005_secure_definer_search_path.sql` — pins both SECURITY DEFINER functions to an empty search_path and schema-qualifies relations. See [SECURITY DEFINER search-path hardening](./SECURITY-DEFINER-SEARCH-PATH-2026-11-20.md).
+6. `supabase/migrations/202611280006_free_product_page_quota.sql` — adds a one-page-per-account table, two successful update-RPC allowance, owner-only table reads, and a narrow public-page RPC. It is committed for review, not applied; the ShopPage UI is not yet wired to it. See [Free plan policy](./FREE-PLAN-POLICY.md).
 
 See also [Account onboarding](./ACCOUNT-ONBOARDING.md) and [Store access hardening](./STORE-ACCESS-HARDENING.md).
 
@@ -27,7 +28,7 @@ See also [Account onboarding](./ACCOUNT-ONBOARDING.md) and [Store access hardeni
 
 ## Important limitations and next implementation work
 
-This is still a starter schema, not a production-ready backend. Although the owner reports successful execution in Supabase, the schema has not been independently inspected, fully tested with real authenticated and anonymous sessions, or penetration-tested. The seller portal now has an initial Auth connection and calls the store-creation RPC, but product, storefront, order and payment workflows are not connected. Do not rerun migrations blindly; first inspect the Supabase migration history and current schema.
+This is still a starter schema, not a production-ready backend. Although the owner reports successful execution of migrations 001–003 in Supabase, the schema has not been independently inspected, fully tested with real authenticated and anonymous sessions, or penetration-tested. Migration 006 is only a reviewed source change until it is safely applied and tested. The seller portal now has an initial Auth connection and calls the store-creation RPC, but product, storefront, order and payment workflows are not connected. Do not rerun migrations blindly; first inspect the Supabase migration history and current schema.
 
 Before accepting real orders:
 1. Add server-side endpoints or carefully reviewed database functions for quote creation/acceptance, atomic slot reservation, order creation and cancellation.
