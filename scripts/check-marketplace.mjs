@@ -329,7 +329,7 @@ if (migrationSql.freePlan) {
       !/edit_count = p\.edit_count \+ 1/.test(updateFunction)) {
     errors.push("migration 006: authenticated owner RPCs must create one page and atomically consume no more than two successful edits");
   }
-  if (/\\bslug\\s*=/.test(updateFunction) ||
+  if (/\bslug\s*=/.test(updateFunction) ||
       !publicGetter.includes("returns table") ||
       publicGetter.includes("owner_user_id") ||
       publicGetter.includes("edit_count") ||
