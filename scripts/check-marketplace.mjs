@@ -320,9 +320,9 @@ if (migrationSql.freePlan) {
     errors.push("migration 006: product-page quota table, owner uniqueness, RLS, write revocation and empty SECURITY DEFINER search_path must be present");
   }
   if (!freePlan.includes("create or replace function public.create_my_product_page(") ||
-      !/grant execute on function public\\.create_my_product_page\\(uuid,text,text,text,numeric,text,text,text,text,text\\)\\s+to authenticated/.test(freePlan) ||
+      !/grant execute on function public\.create_my_product_page\(uuid,text,text,text,numeric,text,text,text,text,text\)\s+to authenticated/.test(freePlan) ||
       !freePlan.includes("create or replace function public.update_my_product_page(") ||
-      !/grant execute on function public\\.update_my_product_page\\(uuid,text,text,numeric,text,text,text,text,text\\)\\s+to authenticated/.test(freePlan) ||
+      !/grant execute on function public\.update_my_product_page\(uuid,text,text,numeric,text,text,text,text,text\)\s+to authenticated/.test(freePlan) ||
       !freePlan.includes("where p.id = p_page_id") ||
       !freePlan.includes("and p.owner_user_id = v_user_id") ||
       !freePlan.includes("and p.edit_count < 2") ||
