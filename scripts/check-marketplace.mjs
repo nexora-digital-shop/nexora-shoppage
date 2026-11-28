@@ -307,8 +307,8 @@ if (migrationSql.searchPathHardening) {
 
 if (migrationSql.freePlan) {
   const freePlan = migrationSql.freePlan;
-  const updateFunction = freePlan.split("create or replace function public.update_my_product_page(")[1]?.split("$;")[0] || "";
-  const publicGetter = freePlan.split("create or replace function public.get_public_product_page(")[1]?.split("$;")[0] || "";
+  const updateFunction = freePlan.split("create or replace function public.update_my_product_page(")[1]?.split("$$;")[0] || "";
+  const publicGetter = freePlan.split("create or replace function public.get_public_product_page(")[1]?.split("$$;")[0] || "";
   const emptySearchPathCount = (freePlan.match(/set search_path = ''/g) || []).length;
   if (!freePlan.includes("create table public.product_pages") ||
       !freePlan.includes("unique (owner_user_id)") ||
