@@ -6,8 +6,9 @@
 -- Each successful update RPC consumes exactly one of two saved edits.
 -- Direct browser writes and deletes are revoked. Preview/cancel/failed saves do not
 -- call the update RPC and therefore do not consume an edit.
--- Deleting the Auth account cascades the page row; account deletion policy must
--- be designed and disclosed before production launch.
+-- The existing stores.owner_user_id foreign key uses ON DELETE RESTRICT, so
+-- account deletion is not currently supported. Design and test an explicit
+-- account-deletion/retention workflow before production launch.
 
 begin;
 
