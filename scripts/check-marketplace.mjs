@@ -226,7 +226,8 @@ const migrationFiles = {
   schema: "supabase/migrations/202611100001_initial_marketplace.sql",
   hardening: "supabase/migrations/202611100003_store_write_hardening.sql",
   onboarding: "supabase/migrations/202611120004_store_onboarding_validation.sql",
-  searchPathHardening: "supabase/migrations/202611200005_secure_definer_search_path.sql"
+  searchPathHardening: "supabase/migrations/202611200005_secure_definer_search_path.sql",
+  freePlan: "supabase/migrations/202611280006_free_product_page_quota.sql"
 };
 const migrationSql = {};
 for (const [name, path] of Object.entries(migrationFiles)) {
@@ -304,6 +305,39 @@ if (migrationSql.searchPathHardening) {
   }
 }
 
+if (migrationSql.freePlan) {
+  const freePlan = migrationSql.freePlan;
+  const updateFunction = freePlan.split("create or replace function public.update_my_product_page(")[1]?.split("$;")[0] || "";
+  const publicGetter = freePlan.split("create or replace function public.get_public_product_page(")[1]?.split("$;")[0] || "";
+  const emptySearchPathCount = (freePlan.match(/set search_path = ''/g) || []).length;
+  if (!freePlan.includes("create table public.product_pages") ||
+      !freePlan.includes("unique (owner_user_id)") ||
+      !freePlan.includes("check (edit_count between 0 and 2)") ||
+      !freePlan.includes("alter table public.product_pages enable row level security") ||
+      !freePlan.includes("revoke all on table public.product_pages from public, anon, authenticated") ||
+      !freePlan.includes('create policy "owner reads own product page" on public.product_pages') ||
+      emptySearchPathCount < 3) {
+    errors.push("migration 006: product-page quota table, owner uniqueness, RLS, write revocation and empty SECURITY DEFINER search_path must be present");
+  }
+  if (!freePlan.includes("create or replace function public.create_my_product_page(") ||
+      !freePlan.includes("grant execute on function public.create_my_product_page(uuid,text,text,text,numeric,text,text,text,text,text) to authenticated") ||
+      !freePlan.includes("create or replace function public.update_my_product_page(") ||
+      !freePlan.includes("grant execute on function public.update_my_product_page(uuid,text,text,numeric,text,text,text,text,text) to authenticated") ||
+      !freePlan.includes("where p.id = p_page_id") ||
+      !freePlan.includes("and p.owner_user_id = v_user_id") ||
+      !freePlan.includes("and p.edit_count < 2") ||
+      !/edit_count = p\.edit_count \+ 1/.test(updateFunction)) {
+    errors.push("migration 006: authenticated owner RPCs must create one page and atomically consume no more than two successful edits");
+  }
+  if (/\\bslug\\s*=/.test(updateFunction) ||
+      !publicGetter.includes("returns table") ||
+      publicGetter.includes("owner_user_id") ||
+      publicGetter.includes("edit_count") ||
+      !freePlan.includes("grant execute on function public.get_public_product_page(text) to anon, authenticated")) {
+    errors.push("migration 006: page slug must remain stable and the public getter must expose only storefront fields");
+  }
+}
+
 if (/service_role|sb_secret_/i.test(sellerPortal)) {
   errors.push("seller-portal.html: privileged Supabase secret detected in browser code");
 }
@@ -378,4 +412,4 @@ if (errors.length) {
   for (const error of errors) console.error(" - " + error);
   process.exit(1);
 }
-console.log("NEXORA static checks passed: marketplace, seller portal and storefront inline JavaScript syntax; storefront CI trigger and safe WhatsApp handoff; root entry point; four locale dictionaries; visible translation keys; database-backed dashboard assertions; language selector options; migration guardrails; and SECURITY DEFINER search-path hardening.");
+console.log("NEXORA static checks passed: marketplace, seller portal and storefront inline JavaScript syntax; storefront CI trigger and safe WhatsApp handoff; root entry point; four locale dictionaries; visible translation keys; database-backed dashboard assertions; language selector options; migrations 001-006 guardrails; Free product-page quota RPC checks; and SECURITY DEFINER search-path hardening.");
