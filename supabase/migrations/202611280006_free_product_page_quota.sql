@@ -27,7 +27,7 @@ create table public.product_pages (
   currency char(3) not null
     check (currency ~ '^[A-Z]{3}$'),
   locale text not null
-    check (locale in ('id','en','ko','ja')),
+    check (locale in ('id','en','ko','ja','zh','es','fr','de','pt','ar','hi','th','vi','ms','it','nl','ru','tr')),
   image_url text,
   order_url text,
   button_label text not null
@@ -168,8 +168,8 @@ begin
     raise exception 'Use a three-letter ISO currency code' using errcode = '22023';
   end if;
 
-  if v_locale not in ('id','en','ko','ja') then
-    raise exception 'Supported page languages are id, en, ko and ja' using errcode = '22023';
+  if v_locale not in ('id','en','ko','ja','zh','es','fr','de','pt','ar','hi','th','vi','ms','it','nl','ru','tr') then
+    raise exception 'Supported page language code is not recognized' using errcode = '22023';
   end if;
 
   if v_image_url is not null and v_image_url !~ '^https://[^[:space:]]+$' then
@@ -186,6 +186,20 @@ begin
       when 'id' then 'Pesan sekarang'
       when 'ko' then '지금 주문'
       when 'ja' then '今すぐ注文'
+      when 'zh' then '立即订购'
+      when 'es' then 'Pedir ahora'
+      when 'fr' then 'Commander'
+      when 'de' then 'Jetzt bestellen'
+      when 'pt' then 'Pedir agora'
+      when 'ar' then 'اطلب الآن'
+      when 'hi' then 'अभी ऑर्डर करें'
+      when 'th' then 'สั่งซื้อเลย'
+      when 'vi' then 'Đặt hàng ngay'
+      when 'ms' then 'Pesan sekarang'
+      when 'it' then 'Ordina ora'
+      when 'nl' then 'Bestel nu'
+      when 'ru' then 'Заказать'
+      when 'tr' then 'Şimdi sipariş ver'
       else 'Order now'
     end
   );
@@ -266,8 +280,8 @@ begin
     raise exception 'Use a three-letter ISO currency code' using errcode = '22023';
   end if;
 
-  if v_locale not in ('id','en','ko','ja') then
-    raise exception 'Supported page languages are id, en, ko and ja' using errcode = '22023';
+  if v_locale not in ('id','en','ko','ja','zh','es','fr','de','pt','ar','hi','th','vi','ms','it','nl','ru','tr') then
+    raise exception 'Supported page language code is not recognized' using errcode = '22023';
   end if;
 
   if v_image_url is not null and v_image_url !~ '^https://[^[:space:]]+$' then
@@ -284,6 +298,20 @@ begin
       when 'id' then 'Pesan sekarang'
       when 'ko' then '지금 주문'
       when 'ja' then '今すぐ注文'
+      when 'zh' then '立即订购'
+      when 'es' then 'Pedir ahora'
+      when 'fr' then 'Commander'
+      when 'de' then 'Jetzt bestellen'
+      when 'pt' then 'Pedir agora'
+      when 'ar' then 'اطلب الآن'
+      when 'hi' then 'अभी ऑर्डर करें'
+      when 'th' then 'สั่งซื้อเลย'
+      when 'vi' then 'Đặt hàng ngay'
+      when 'ms' then 'Pesan sekarang'
+      when 'it' then 'Ordina ora'
+      when 'nl' then 'Bestel nu'
+      when 'ru' then 'Заказать'
+      when 'tr' then 'Şimdi sipariş ver'
       else 'Order now'
     end
   );
