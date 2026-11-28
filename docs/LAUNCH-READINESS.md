@@ -73,6 +73,7 @@ The `marketplace.html` prototype has a static language switcher for Indonesian (
 
 ### 7. Plans and billing
 - Enforce the agreed Free plan on the server: one product page per account for account lifetime, with at most two successful saved edits after initial creation; preview/cancel/failed saves do not consume edits; locked pages remain viewable/shareable.
+- Migration 006 now prepares the product-page table and authenticated quota RPCs, but it is not applied to Supabase and the ShopPage UI is not connected. Do not mark this gate complete until the migration is applied after history review and tested with two accounts, including a rejected third edit.
 - Keep NEXORA branding on Free; no custom domain or premium features.
 - Implement paid-plan billing, invoices, cancellations, failed-payment handling and refunds only after terms and provider setup are ready.
 - Proposed paid prices are not active offers until product capabilities, billing and support are ready.
