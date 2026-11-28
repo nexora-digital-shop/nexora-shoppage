@@ -1,6 +1,6 @@
 # NEXORA ShopPage — Free Plan Policy
 
-Status: Approved product policy; implementation pending.
+Status: Approved product policy. Migration 006 now contains database-side quota enforcement, but it is not applied to Supabase and the UI is not connected.
 
 ## Free plan limits
 
@@ -26,4 +26,4 @@ Status: Approved product policy; implementation pending.
 
 ## Current implementation status
 
-The current GitHub Pages prototype is a static, browser-only HTML application. It has no authentication, database, server-side usage counter, subscription billing, or public page publishing service. Therefore, this policy must not be represented as technically enforced until a backend and account system are implemented and tested.
+The repository now contains `supabase/migrations/202611280006_free_product_page_quota.sql`. If applied after verified migrations 001–005, it creates one product-page row per account, permits at most two successful update-RPC calls, revokes direct browser writes/deletes, and exposes a limited public-page RPC. This is source code only: the migration has not been applied or tested against the live Supabase project, and the ShopPage UI is not connected to these RPCs. Preview-before-save, account deletion/retention, duplicate-account abuse controls, paid-plan entitlements, and real public-page rendering remain unimplemented. Do not describe the Free limits as active until the migration and two-account runtime tests pass.
