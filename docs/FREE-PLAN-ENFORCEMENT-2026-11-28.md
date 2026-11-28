@@ -31,7 +31,7 @@ Updated `scripts/check-marketplace.mjs` to inspect migration 006 for:
 
 The workflow already watches `supabase/migrations/**` and the checker file on pushes and pull requests, so these changes should trigger CI. The latest run for these new commits has not yet been verified in this checkpoint.
 
-A separate source-level verification against the fetched migration and checker files evaluated 14 quota-specific assertions; all 14 passed. This verifies the expected SQL patterns and checker coverage only. It is not a PostgreSQL execution, full Node checker run, or GitHub Actions result.
+A separate source-level verification against the fetched migration and checker files evaluated 15 quota-specific assertions; all 15 passed. This verifies the expected SQL patterns and checker coverage only. It is not a PostgreSQL execution, full Node checker run, or GitHub Actions result.
 
 ## Not completed / release blockers
 
